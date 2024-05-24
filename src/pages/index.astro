@@ -1,20 +1,33 @@
 ---
 import Layout from "../components/layout.astro";
 import { Image } from "astro:assets";
-import headshot from "../images/headshot.jpg";
 import Heading from "../components/heading.astro";
+
+import headshot from "../images/headshot.jpg";
+import github from "../images/github-logo.svg";
+import linkedin from "../images/linkedin-logo.svg";
+import Logo from "../components/logo.astro";
 ---
 
 <Layout title="mukul's personal website">
     <div class="flex flex-col md:flex-row justify-center items-center">
-        <Image
-            src={headshot}
-            alt="An image of Mukul Agarwal."
-            class="rounded-full border-4 border-purple-800 max-w-44 sm:max-w-60 md:max-w-72 "
-        />
+        <div class="flex flex-col justify-center items-center">
+            <Image
+                src={headshot}
+                alt="An image of Mukul Agarwal."
+                class="rounded-full border-4 border-purple-800 max-w-44 sm:max-w-60 md:max-w-72"
+            />
+            <div class="flex flex-row justify-center items-center pt-5">
+                <Logo src={github} alt="GitHub Logo" url="https://github.com/agarmu"/>
+                <Logo src={linkedin} alt="LinkedIn Logo" url="https://www.linkedin.com/in/agarmu/"/>
+            </div>
+        </div>
         <div class="px-1 sm:px-10 bg-inherit">
             <Heading id="name-heading">Mukul Agarwal</Heading>
-            <div class="text-indigo-800 text-sm md:text-base lg:text-lg" id="pers-description-div">
+            <div
+                class="text-indigo-800 text-sm md:text-base lg:text-lg"
+                id="pers-description-div"
+            >
                 <p class="p-3">
                     Hello! I'm Mukul Agarwal, an undergraduate studying <span
                         class="font-semibold italic"
@@ -22,8 +35,7 @@ import Heading from "../components/heading.astro";
                     > at Purdue University in West Lafayette, Indiana! I'm interested
                     in learning more about
                     <span class="italic"
-                        >Programming Languages and Quantum
-                        Computing!</span
+                        >Programming Languages and Quantum Computing!</span
                     >
                 </p>
                 <p class="p-2">
@@ -35,9 +47,10 @@ import Heading from "../components/heading.astro";
                     to chat at
                     <span class="underline">hello [at] agarmu [dot] com</span>!
                 </p>
-                <p class="p-2">  
-                    One of the hobbies I most enjoy is nature/landscape photography! I'm currently working on getting some
-                    of my favorite shots uploaded to this website.
+                <p class="p-2">
+                    One of the hobbies I most enjoy is nature/landscape
+                    photography! I'm currently working on getting some of my
+                    favorite shots uploaded to this website.
                 </p>
             </div>
         </div>
@@ -47,7 +60,7 @@ import Heading from "../components/heading.astro";
             let head = document.getElementById("name-heading")!;
             let tail = document.getElementById("pers-description-div")!;
             tail.style.width = `${head.clientWidth}px`;
-        }
+        };
         addEventListener("resize", fix_size);
         addEventListener("load", fix_size);
     </script>
