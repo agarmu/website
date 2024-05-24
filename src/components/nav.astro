@@ -1,22 +1,39 @@
+---
+let paths: string[][] = [
+    ["~agarmu", "/"],
+    ["posts", "/posts"],
+    ["projects", "/projects"],
+];
+const current = Astro.url.pathname.trim();
+---
+
 <div>
-    <nav class="w-full flex items-center justify-end flex-wrap bg-inherit p-6 text-sm md:text-base sm:pr-10">
-            <a
-                href="/"
-                class="block mt-4 sm:inline-block sm:mt-0 text-indigo-600 hover:text-indigo-400 mr-4"
-            >
-                ~agarmu
-            </a>
-            <a
-                href="/projects"
-                class="block mt-4 sm:inline-block sm:mt-0 text-indigo-600 hover:text-indigo-400 mr-4"
-            >
-                projects
-            </a>
-            <a
-                href="/posts"
-                class="block mt-4 sm:inline-block sm:mt-0 text-indigo-600 hover:text-indigo-400"
-            >
-                posts
-            </a>
+    <nav
+        class="w-full flex items-center justify-end flex-wrap bg-inherit p-6 text-sm md:text-base sm:pr-10"
+    >
+        {
+            paths.map((x) => {
+                if (current != x[1]) {
+                    return (
+                        <div class="block mt-4 sm:inline-block sm:mt-0 mr-4">
+                            <a
+                                href={x[1]}
+                                class="text-indigo-600 hover:text-indigo-800"
+                            >
+                                {x[0]}
+                            </a>
+                        </div>
+                    );
+                } else {
+                    return (
+                        <div class="block mt-4 sm:inline-block sm:mt-0 mr-4">
+                            <a class="text-indigo-800">
+                                {x[0]}
+                            </a>
+                        </div>
+                    );
+                }
+            })
+        }
     </nav>
 </div>
