@@ -1,0 +1,47 @@
+---
+interface Props {
+    title: string;
+}
+const { title } = Astro.props;
+const currentPath = Astro.url.pathname.trim();
+
+import Layout from "./layout.astro";
+import { Image } from "astro:assets";
+import hammer_gif from "../hammer.gif";
+---
+
+<Layout title=`${title}: under construction`>
+    <div class="flex flex-col h-full">
+        <div class="flex flex-col text-base items-center justify-center h-full">
+            <Image
+                src={hammer_gif}
+                class="object-center max-w-52 sm:max-w-72 md:max-w-80 lg:max-w-96"
+                alt="A penguin wearing a yellow hard hat is laying bricks onto a wall. Above, there is a text caption stating 'Let's Build!'."
+            />
+            <p
+                class="text-2xl sm:text-4xl md:text-6xl text-indigo-800 text-center"
+            >
+                oops. this page is under construction.
+            </p>
+            <p
+                class="text-base sm:text-xl md:text-2xl lg:text-4xl text-indigo-800 text-center pt-5 md:pt-10"
+            >
+                you are at: <a
+                    href={currentPath}
+                    class="hover:text-slate-400 underline font-mono">{currentPath}</a
+                >
+        </p>
+        <p class="text-base sm:text-xl md:text-2xl lg:text-4xl text-indigo-800 text-center pt-2 md:pt-4">
+            <a  href="/"
+            class="hover:text-slate-400 hover:italic underline font-mono">go home!</a>
+        </p>
+        </div>
+        <div class="w-full">
+            <p class="text-indigo-900 text-xs text-center">
+                Attribution: Hammer image sourced from <a class="underline hover:text-slate-400 hover:italic"
+                href="https://giphy.com/stickers/sapitamusic-transparent-hammer-build-aQsD1oho6qi00r7Ql4">giphy (sapitamusic)</a>.
+            </p>
+        </div>
+    </div>
+    
+</Layout>
