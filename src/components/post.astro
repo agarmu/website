@@ -1,17 +1,33 @@
 ---
-
 interface Props {
     frontmatter: {
-        title: string,
-    }
+        title: string;
+        pubDate: Date;
+        editDate?: Date;
+        description: string;
+        image?: string;
+        tags?: string[];
+    };
 }
 const { frontmatter } = Astro.props;
+const { title, pubDate, editDate, description, image, tags } = frontmatter;
 
-import Layout from "./layout.astro"
+import Layout from "./layout.astro";
 ---
-<Layout title={`Post: ${frontmatter.title}`}>
-        <h1 class="text-6xl text-bold text-center font-bold text-indigo-700 py-5">{frontmatter.title}</h1>
-    <div class="">
-        <slot/>
+
+<Layout title={`post: ${frontmatter.title}`}>
+    <div
+        class="flex flex-col w-full items-center justify-center py-5"
+    >
+        <h1
+            class="text-2xl sm:text-3xl md:text-4xl text-bold text-center font-extrabold text-slate-700"
+        >
+            {frontmatter.title}
+        </h1>
+        <p class="text text-xs sm:text-sm lg:text-base font-semibold text-slate-700">
+            {pubDate.toString().slice(0, 10)}
+            {(editDate != undefined) && <span>(edited {editDate!.toString().slice(0, 10)})</span>}
+        </p>
     </div>
+    <slot />
 </Layout>

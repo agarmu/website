@@ -1,0 +1,33 @@
+---
+import Taglist from './taglist.astro';
+
+interface Props {
+    data: {
+        frontmatter: {
+            title: string;
+            pubDate: Date;
+            editDate?: Date;
+            description: string;
+            image?: string;
+            tags?: string[];
+        };
+        url: string;
+    };
+}
+const { data } = Astro.props;
+const { title, pubDate, editDate, description, image, tags } = data.frontmatter;
+---
+
+<div class="p-2 m-2 border-2 border-slate-700 items-center rounded-lg">
+    <p
+        class="text-base sm:text-lg md:text-xl font-semibold hover:font-bold text-indigo-700 text-center hover:underline hover:text-indigo-800"
+    >
+    <a href={data.url}> {title}</a>
+    </p>
+    <p
+        class="text-xs sm:text-sm md:text-base font-semibold text-slate-700 text-center"
+    >
+        {pubDate.toString().slice(0, 10)}
+    </p>
+    {(tags != undefined) && <Taglist tags={tags}/>}
+</div>

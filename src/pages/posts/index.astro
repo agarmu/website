@@ -1,10 +1,17 @@
 ---
+import BlogEntry from "../../components/blog-entry.astro";
 import Heading from "../../components/heading.astro";
 import Layout from "../../components/layout.astro";
-import UnderConstruction from "../../components/under-construction.astro";
+
+const allPosts = (await Astro.glob("./*.md"));
+const sortedPosts = allPosts.toSorted((a, b) => {
+    return b.frontmatter.pubDate.valueOf() - a.frontmatter.pubDate.valueOf();
+});
 ---
 
 <Layout title="mukul's posts">
-        <Heading id="post-heading-id">posts</Heading>
+    <Heading id="post-heading-id">posts</Heading>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-4">
+        {sortedPosts.map((x: any) => <BlogEntry data={x} />)}
     </div>
 </Layout>
