@@ -4,6 +4,11 @@ import Layout from "../../components/layout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 const photos = await getCollection("photos");
+const years: number[] = photos.map(p => {
+    return (new Date(p.data.date)).getFullYear()
+})
+let minYr = Math.min(...years)
+let maxYr = Math.max(...years)
 ---
 
 <Layout title="photos">
@@ -28,6 +33,10 @@ const photos = await getCollection("photos");
     ))
 }
 </div>
-
+<p class="text-sm text-center font-bold">
+  &copy; {
+    minYr
+  } - {maxYr} Mukul Agarwal
+</p>
 
 </Layout>
