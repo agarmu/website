@@ -7,11 +7,19 @@ const allPosts = (await Astro.glob("./*.md"));
 const sortedPosts = allPosts.toSorted((a, b) => {
     return b.frontmatter.pubDate.valueOf() - a.frontmatter.pubDate.valueOf();
 });
+
+import rss from "../../images/rss.svg"
+import rssInv from "../../images/rss-inv.svg"
+import Logo from "../../components/logo.astro";
 ---
 
 <Layout title="mukul's posts">
     <Heading id="post-heading-id">posts</Heading>
+    <div class="flex flex-row p-2 items-center justify-center">
+        <Logo src={rss} alt={rssInv} desc="RSS Feed" url="/posts/rss.xml" />
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-4">
         {sortedPosts.map((x: any) => <BlogEntry data={x} />)}
     </div>
 </Layout>
+ 

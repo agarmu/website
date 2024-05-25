@@ -29,5 +29,8 @@ const { title, pubDate, editDate, description, image, tags } = data.frontmatter;
     >
         {pubDate.toString().slice(0, 10)}
     </p>
-    {(tags != undefined) && <Taglist tags={tags}/>}
+    <p class="text-xs md:text-sm pt-2 h-full text-slate-500">
+        {description}<a class="font-bold text-slate-700 hover:underline" href={data.url}>&nbsp;Read&nbsp;>></span>
+    </p>
+    <!-- {(tags != undefined) && <Taglist tags={tags}/>} -->
 </div>
