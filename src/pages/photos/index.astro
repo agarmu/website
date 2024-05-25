@@ -1,0 +1,34 @@
+---
+import Heading from "../../components/heading.astro";
+import Layout from "../../components/layout.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import Masonry from 'react-masonry-css';
+const photos = await getCollection("photos");
+---
+
+<Layout title="photos">
+<Heading id = "">photo gallery</Heading>
+<div class="columns-1 sm:columns-2 lg:columns-3">
+  {
+    photos.map(p => (
+    <a
+          href={`/photos/${p.id}`}
+          class="group transition-all mb-4 block w-full"
+        >
+            <Image
+            src={p.data.img}
+            alt={p.data.description}
+            quality="low"
+            class:list={[
+              "rounded-lg transition-all",
+              "group-hover:shadow-lg group-hover:opacity-90"
+            ]}
+          />
+        </a>
+    ))
+}
+</div>
+
+
+</Layout>
