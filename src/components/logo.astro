@@ -1,6 +1,6 @@
 ---
 interface Props {
-    src: ImageMetadata,
+    src: any,
     alt: string,
     url: string
 }
@@ -11,6 +11,6 @@ import { Image } from "astro:assets";
 <Image
     src={src}
     alt={alt}
-    class="w-6 md:w-7 pr-2"
+    class="w-6 md:w-7 pr-2 fill-slate-700"
 />
 </a>
