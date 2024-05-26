@@ -6,5 +6,12 @@ import mdx from "@astrojs/mdx";
 // https://astro.build/config
 export default defineConfig({
   site: 'https://agarmu.com/',
-  integrations: [tailwind(), sitemap(), mdx()]
+  integrations: [tailwind(), sitemap(), mdx()],
+  markdown: {
+    shikiConfig: {
+      theme: 'catppuccin-latte',
+      wrap: true,
+      
+    }
+  }
 });

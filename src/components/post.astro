@@ -14,7 +14,9 @@ const { title, pubDate, editDate, description, image, tags } = frontmatter;
 
 import Layout from "./layout.astro";
 ---
-
+<head>
+        <meta name="description" content=`${description}`>
+</head>
 <Layout title={`post: ${frontmatter.title}`}>
     <div
         class="flex flex-col w-full items-center justify-center py-5"
@@ -28,6 +30,8 @@ import Layout from "./layout.astro";
             {pubDate.toString().slice(0, 10)}
             {(editDate != undefined) && <span>(edited {editDate!.toString().slice(0, 10)})</span>}
         </p>
+        <div class="prose lg:prose-xl">
+            <slot />
+        </div>
     </div>
-    <slot />
 </Layout>
