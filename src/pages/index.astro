@@ -17,11 +17,21 @@ import Logo from "../components/logo.astro";
             <Image
                 src={headshot}
                 alt="An image of Mukul Agarwal."
-                class="rounded-full border-4 border-purple-800 max-w-44 sm:max-w-60 md:max-w-72"
+                class="rounded-full border-2 md:border-4 max-w-44 sm:max-w-60 md:max-w-72 border-indigo-800"
             />
             <div class="flex flex-row justify-center items-center pt-5">
-                <Logo src={github} alt={githubInv} desc="GitHub Link" url="https://github.com/agarmu"/>
-                <Logo src={linkedin} alt={linkedinInv} desc="LinkedIn Link" url="https://www.linkedin.com/in/agarmu/"/>
+                <Logo
+                    src={github}
+                    alt={githubInv}
+                    desc="GitHub Link"
+                    url="https://github.com/agarmu"
+                />
+                <Logo
+                    src={linkedin}
+                    alt={linkedinInv}
+                    desc="LinkedIn Link"
+                    url="https://www.linkedin.com/in/agarmu/"
+                />
             </div>
         </div>
         <div class="px-1 sm:px-10 bg-inherit">
@@ -31,28 +41,31 @@ import Logo from "../components/logo.astro";
                 id="pers-description-div"
             >
                 <p class="p-3">
-                    Hello! I'm Mukul Agarwal, an undergraduate studying <span
-                        class="font-semibold italic"
-                        >Computer Science and Mathematics</span
-                    > at Purdue University in West Lafayette, Indiana! I'm interested
-                    in learning more about
+                    Hello! I'm Mukul Agarwal, an undergraduate studying Computer
+                    Science and Mathematics at Purdue University in West
+                    Lafayette, Indiana. I'm interested in learning more about
                     <span class="italic"
                         >Programming Languages and Quantum Computing!</span
                     >
                 </p>
                 <p class="p-2">
-                    I also sometimes write <a
+                    I also sometimes write about projects and ideas, which you
+                    can find at <a
                         href="/posts"
-                        class="underline hover:text-slate-700"
-                        >about projects I work on and random thoughts</a
+                        class="underline font-semibold hover:text-slate-700"
+                        >/posts</a
                     >. Please feel free to reach out to me anytime if you'd like
                     to chat at
                     <span class="underline">hello [at] agarmu [dot] com</span>!
                 </p>
                 <p class="p-2">
-                    One of the hobbies I most enjoy is nature/landscape
-                    photography! I'm currently working on getting some of my
-                    favorite shots uploaded to this website.
+                    I enjoy photography as a hobby; you can see some of my
+                    favorite shots at
+                    <a
+                        href="/posts"
+                        class="underline font-semibold hover:text-slate-700"
+                        >/photos</a
+                    >.
                 </p>
             </div>
         </div>
