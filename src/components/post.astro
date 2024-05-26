@@ -14,24 +14,38 @@ const { title, pubDate, editDate, description, image, tags } = frontmatter;
 
 import Layout from "./layout.astro";
 ---
+
 <head>
-        <meta name="description" content=`${description}`>
+    <meta name="description" content=`${description}` />
 </head>
 <Layout title={`post: ${frontmatter.title}`}>
-    <div
-        class="flex flex-col w-full items-center justify-center py-5"
-    >
-        <h1
-            class="text-2xl sm:text-3xl md:text-4xl text-bold text-center font-extrabold text-slate-700"
+    <div class="flex items-center justify-center w-full">
+        <div
+            class="flex flex-col l items-center justify-center py-5 w-fit object-center place-content-center"
         >
-            {frontmatter.title}
-        </h1>
-        <p class="text text-xs sm:text-sm lg:text-base font-semibold text-slate-700">
-            {pubDate.toString().slice(0, 10)}
-            {(editDate != undefined) && <span>(edited {editDate!.toString().slice(0, 10)})</span>}
-        </p>
-        <div class="prose lg:prose-xl">
-            <slot />
+            <div class="flex w-full pb-1 sm:pb-2 md:pb-3 lg:pb-4 justify-center items-center md:justify-start md:items-start">
+                <a href="/posts" class="text-indigo-700 font-bold hover:underline hover:text-indigo-500 text-xs md:text-sm lg:text-base">&larr; Go back</a>
+            </div>
+            <h1
+                class="text-2xl sm:text-3xl md:text-4xl text-bold text-center font-extrabold text-slate-700"
+            >
+                {frontmatter.title}
+            </h1>
+            <p
+                class="text text-xs sm:text-sm lg:text-base font-semibold text-slate-700"
+            >
+                {pubDate.toString().slice(0, 10)}
+                {
+                    editDate != undefined && (
+                        <span>
+                            (edited {editDate!.toString().slice(0, 10)})
+                        </span>
+                    )
+                }
+            </p>
+            <div class="prose prose-sm sm:prose-base lg:prose-xl prose-slate">
+                <slot />
+            </div>
         </div>
     </div>
 </Layout>
