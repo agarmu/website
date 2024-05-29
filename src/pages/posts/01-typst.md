@@ -1,10 +1,8 @@
 ---
 layout: ../../components/post.astro
-title: "So... what's this typst thing?"
+title: The beginnings of a Computer Algebra System with OCaml
 pubDate: 2024-05-29
-description: I cannot take LaTeX anymore
+description: Nobody likes simplifying polynomials
 draft: true
 ---
-For years, I have used LaTeX extensively for things as varied as single page math homeworks
-to papers which amounted to hundreds of pages. And LaTeX is good at what it does; it had to have
-been to survive this long. But it has a fatal flaw: LaTeX is _really, really, ugly_. Case in point:
+As an exercise, let's try to

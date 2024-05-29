@@ -10,19 +10,21 @@ interface Props {
             description: string;
             image?: string;
             tags?: string[];
+            draft: boolean
         };
         url: string;
     };
 }
 const { data } = Astro.props;
-const { title, pubDate, editDate, description, image, tags } = data.frontmatter;
+const { title, pubDate, editDate, description, image, tags, draft } = data.frontmatter;
+const isRenderable = (import.meta.env.MODE == 'development') || (!draft)
 ---
-
+{isRenderable &&
 <div class="p-2 m-2">
     <div
         class="text-base md:text-lg font-semibold flex flex-col md:flex-row align-middle text-slate-700"
     >
-        <a class="hover:underline" href={data.url}> {title}</a>
+        {draft && <span class="text text-yellow-700">&lowast;&nbsp;</span>}<a class="hover:underline" href={data.url}> {title}</a>
         <div class="h-full md:border-l-2 md:border-slate-900 mx-2">
             &ZeroWidthSpace;
         </div>
@@ -39,3 +41,4 @@ const { title, pubDate, editDate, description, image, tags } = data.frontmatter;
         >
     </p>
 </div>
+}

@@ -6,7 +6,6 @@ import Layout from "../../components/layout.astro";
 const allPosts = (await Astro.glob("./*.md"));
 const sortedPosts = allPosts
     .toSorted((a, b) => a.frontmatter.pubDate - b.frontmatter.pubDate)
-    .filter(x => !x.frontmatter.draft)
 import rss from "../../images/rss.svg"
 import rssInv from "../../images/rss-inv.svg"
 import Logo from "../../components/logo.astro";
