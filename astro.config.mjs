@@ -11,7 +11,9 @@ export default defineConfig({
     shikiConfig: {
       theme: 'catppuccin-latte',
       wrap: true,
-      
     }
+  },
+  image: {
+    domains: ["v5.airtableusercontent.com"]
   }
 });
