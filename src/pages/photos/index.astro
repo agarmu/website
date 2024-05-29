@@ -2,11 +2,10 @@
 import Heading from "../../components/heading.astro";
 import Layout from "../../components/layout.astro";
 import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
-const photos = await getCollection("photos");
-const years: number[] = photos.map(p => {
-    return (new Date(p.data.date)).getFullYear()
-})
+import { fetchPhotos } from "../../lib/airtable";
+
+const photos = await fetchPhotos()
+const years = photos.map(x => x.date.getFullYear())
 let minYr = Math.min(...years)
 let maxYr = Math.max(...years)
 ---
@@ -21,8 +20,10 @@ let maxYr = Math.max(...years)
           class="group transition-all mb-4 block w-full"
         >
             <Image
-            src={p.data.img}
-            alt={p.data.description}
+            src={p.photo.url}
+            height={p.photo.height}
+            width={p.photo.width}
+            alt={p.description}
             quality={10}
             class:list={[
               "rounded-lg transition-all",
@@ -32,7 +33,7 @@ let maxYr = Math.max(...years)
           />
         </a>
     ))
-}
+  }
 </div>
 <p class="text-sm text-center font-bold">
   &copy; {

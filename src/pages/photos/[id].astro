@@ -1,10 +1,10 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "../../components/layout.astro";
 import { Image } from "astro:assets";
+import { fetchPhotos } from "../../lib/airtable";
 
 export async function getStaticPaths() {
-  const photos = await getCollection("photos");
+  const photos = await fetchPhotos()
 
   const paths = Object.values(photos).map((p) => {
     return {
@@ -27,31 +27,33 @@ let fmt = (date: Date): string => {
   let day = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(date);
   return `${day} ${month} ${year}`;
 };
-let current_yr = (new Date(p.data.date)).getFullYear()
+let current_yr = (new Date(p.date)).getFullYear()
 ---
 
-<Layout title=`photo: ${p.data.description}`>
+<Layout title=`photo: ${p.title}`>
   <div class="flex max-h-full flex-col">
     <div class="flex w-full flex-col m-2 items-center justify-center">
       <div
         class="flex w-full flex-col md:flex-row m-2 items-center justify-center"
       >
         <p class="font-bold text-sm md:text-base text-slate-700 text-center">
-          {p.data.description}
+          {p.title}
         </p>
         <div class="h-full md:border-l-2 md:border-slate-900 mx-2"></div>
         <p class="text-sm md:text-base text-slate-700">
-          {fmt(p.data.date)}&nbsp;—&nbsp;<span
+          {fmt(p.date)}&nbsp;—&nbsp;<span
             class="italic text-sm md:text-base text-slate-700"
-            >{p.data.location}</span
+            >{p.place}</span
           >
         </p>
       </div>
     </div>
     <div class="flex max-h-full flex-col">
       <Image
-        src={p.data.img}
-        alt={p.data.description}
+        src={p.photo.url}
+        height={p.photo.height}
+        width={p.photo.width}
+        alt={p.description}
         quality={35}
         class="object-scale-down"
         style="max-height: 85%;"
