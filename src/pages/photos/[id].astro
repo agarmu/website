@@ -2,24 +2,27 @@
 import Layout from "../../components/layout.astro";
 import { Image } from "astro:assets";
 import { fetchPhotos } from "../../lib/airtable";
+import PhotoNav from "../../components/photo-nav.astro";
+
 
 export async function getStaticPaths() {
   const photos = await fetchPhotos()
-
+  const maxId = Math.max(...photos.map(x=>x.id))
+  const minId = Math.min(...photos.map(x=>x.id))
   const paths = Object.values(photos).map((p) => {
     return {
       params: {
         id: p.id,
       },
       props: {
-        p,
+        p, maxId, minId
       },
     };
   });
 
   return paths;
 }
-const { p } = Astro.props;
+const { p, maxId, minId } = Astro.props;
 
 let fmt = (date: Date): string => {
   let year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(date);
@@ -33,6 +36,7 @@ let current_yr = (new Date(p.date)).getFullYear()
 <Layout title=`photo: ${p.title}`>
   <div class="flex max-h-full flex-col">
     <div class="flex w-full flex-col m-2 items-center justify-center">
+      <PhotoNav id={p.id} minId={minId} maxId={maxId} />
       <div
         class="flex w-full flex-col md:flex-row m-2 items-center justify-center"
       >
