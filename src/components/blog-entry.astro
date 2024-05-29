@@ -1,6 +1,5 @@
 ---
 import fmtDate from "../lib/date";
-import Taglist from "./taglist.astro";
 
 interface Props {
     data: {
@@ -39,5 +38,4 @@ const { title, pubDate, editDate, description, image, tags } = data.frontmatter;
             href={data.url}>&nbsp;Read&nbsp;>></a
         >
     </p>
-    <!-- {(tags != undefined) && <Taglist tags={tags}/>} -->
 </div>
