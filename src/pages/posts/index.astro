@@ -3,15 +3,12 @@ import BlogEntry from "../../components/blog-entry.astro";
 import Heading from "../../components/heading.astro";
 import Layout from "../../components/layout.astro";
 
-const allPosts: MarkdownInstance<Record<string, any>>[] = [] // (await Astro.glob("./*.md"));
-const sortedPosts = allPosts.toSorted((a, b) => {
-    return b.frontmatter.pubDate.valueOf() - a.frontmatter.pubDate.valueOf();
-});
+const allPosts = (await Astro.glob("./*.md"));
+const sortedPosts = allPosts.toSorted((a, b) => a.frontmatter.pubDate - b.frontmatter.pubDate);
 
 import rss from "../../images/rss.svg"
 import rssInv from "../../images/rss-inv.svg"
 import Logo from "../../components/logo.astro";
-import type { MarkdownInstance } from "astro";
 ---
 
 <Layout title="mukul's posts">
@@ -20,12 +17,12 @@ import type { MarkdownInstance } from "astro";
         <Logo src={rss} alt={rssInv} desc="RSS Feed" url="/posts/rss.xml" />
     </div>
     {
-    allPosts.length > 0 ?
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-4">
+    sortedPosts.length > 0 ?
+    <div id="body-div" class="flex flex-col">
         {sortedPosts.map((x: any) => <BlogEntry data={x} />)}
     </div>
     :
-    <div class="w-full flex justify-center items-center">
+    <div id="body-div" class="w-full flex justify-center items-center">
         <p class="text text-slate-700 font-semibold w-3/4 sm:w-1/2">
             Unfortunately, there are no posts here yet. You can sign up
             for my <a class="underline hover:text-slate-500" href="/posts/rss.xml">RSS Feed</a>
