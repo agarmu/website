@@ -2,7 +2,7 @@
 layout: ../../components/post.astro
 title: Building a Computer Algebra System in Haskell
 pubDate: 2024-05-29
-description: Because doing calculations by hand is soo last millenium.
+description: TODO
 draft: true
 ---
 
