@@ -26,10 +26,9 @@ const isRenderable = import.meta.env.MODE == "development" || !draft
 	isRenderable && (
 		<div class="p-2 m-2">
 			<div class="text-base md:text-lg font-semibold flex flex-col md:flex-row align-middle text-slate-700">
-				{draft && <span class="text text-yellow-700">&lowast;&nbsp;</span>}
 				<a class="hover:underline" href={data.url}>
-					{" "}
 					{title}
+					{draft && <span class="text text-yellow-700">&nbsp;&lowast;</span>}
 				</a>
 				<div class="h-full md:border-l-2 md:border-slate-900 mx-2">
 					&ZeroWidthSpace;

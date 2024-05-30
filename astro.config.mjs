@@ -18,6 +18,10 @@ export default defineConfig({
 		},
 		remarkPlugins: [remarkMath, remarkReadingTime],
 		rehypePlugins: [rehypeKatex],
+		remarkRehype: {
+			footnoteLabel: "Footnotes",
+			footnoteLabelTagName: "h3",
+		},
 	},
 	image: {
 		domains: ["v5.airtableusercontent.com"],

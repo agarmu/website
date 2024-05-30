@@ -1,7 +1,8 @@
 import DefaultTheme from "tailwindcss/defaultTheme"
 
-const serifFonts = ["Cormorant Garamond"]
+const serifFonts = ["Crimson Pro Variable"]
 const sansFonts = ["Open Sans Variable"]
+const monoFonts = ["Courier Prime"]
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -44,6 +45,16 @@ export default {
 						"width": "75%",
 						"margin": "auto",
 					},
+					"ul": {
+						"list-style-type": "disc",
+						"margin-left": "2rem"
+					},
+					"code": {
+						"font-family": monoFonts
+					},
+					"pre": {
+						"font-family": monoFonts
+					}
 				},
 			},
 			sm: {
@@ -123,6 +134,7 @@ export default {
 			fontFamily: {
 				sans: sansFonts,
 				serif: serifFonts,
+				mono: monoFonts
 			},
 		},
 	},
