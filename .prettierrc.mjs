@@ -10,4 +10,9 @@ export default {
       },
     },
   ],
+  useTabs: true,
+  semi: false,
+  quoteProps: "consistent",
+  bracketSpacing: true,
+
 };
