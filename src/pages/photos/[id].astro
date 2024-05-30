@@ -1,66 +1,65 @@
 ---
-import Layout from "../../components/layout.astro";
-import { Image } from "astro:assets";
-import { fetchPhotos } from "../../lib/airtable";
-import PhotoNav from "../../components/photo-nav.astro";
-import fmtDate from "../../lib/date";
+import Layout from "../../components/layout.astro"
+import { Image } from "astro:assets"
+import { fetchPhotos } from "../../lib/airtable"
+import PhotoNav from "../../components/photo-nav.astro"
+import fmtDate from "../../lib/date"
 
 export async function getStaticPaths() {
-  const photos = await fetchPhotos()
-  const maxId = Math.max(...photos.map(x=>x.id))
-  const minId = Math.min(...photos.map(x=>x.id))
-  const paths = Object.values(photos).map((p) => {
-    return {
-      params: {
-        id: p.id,
-      },
-      props: {
-        p, maxId, minId
-      },
-    };
-  });
+	const photos = await fetchPhotos()
+	const maxId = Math.max(...photos.map((x) => x.id))
+	const minId = Math.min(...photos.map((x) => x.id))
+	const paths = Object.values(photos).map((p) => {
+		return {
+			params: {
+				id: p.id,
+			},
+			props: {
+				p,
+				maxId,
+				minId,
+			},
+		}
+	})
 
-  return paths;
+	return paths
 }
-const { p, maxId, minId } = Astro.props;
+const { p, maxId, minId } = Astro.props
 
-let current_yr = (new Date(p.date)).getFullYear()
+let current_yr = new Date(p.date).getFullYear()
 ---
 
 <Layout title=`photo: ${p.title}`>
-  <div class="flex max-h-full flex-col">
-    <div class="flex w-full flex-col m-2 items-center justify-center">
-      <PhotoNav id={p.id} minId={minId} maxId={maxId} />
-      <div
-        class="flex w-full flex-col md:flex-row m-2 items-center justify-center"
-      >
-        <p class="font-bold text-sm md:text-base text-slate-700 text-center">
-          {p.title}
-        </p>
-        <div class="h-full md:border-l-2 md:border-slate-900 mx-2"></div>
-        <p class="text-sm md:text-base text-slate-700">
-          {fmtDate(p.date)}&nbsp;—&nbsp;<span
-            class="italic text-sm md:text-base text-slate-700"
-            >{p.place}</span
-          >
-        </p>
-      </div>
-    </div>
-    <div class="flex max-h-full flex-col">
-      <Image
-        src={p.photo.url}
-        height={p.photo.height}
-        width={p.photo.width}
-        alt={p.description}
-        quality={35}
-        class="object-scale-down"
-        style="max-height: 85%;"
-      />
-      <p class="text-sm text-center font-bold">
-        &copy; {
-          current_yr
-        } Mukul Agarwal
-      </p>
-    </div>
-  </div>
+	<div class="flex max-h-full flex-col">
+		<div class="flex w-full flex-col m-2 items-center justify-center">
+			<PhotoNav id={p.id} minId={minId} maxId={maxId} />
+			<div
+				class="flex w-full flex-col md:flex-row m-2 items-center justify-center"
+			>
+				<p class="font-bold text-sm md:text-base text-slate-700 text-center">
+					{p.title}
+				</p>
+				<div class="h-full md:border-l-2 md:border-slate-900 mx-2"></div>
+				<p class="text-sm md:text-base text-slate-700">
+					{fmtDate(p.date)}&nbsp;—&nbsp;<span
+						class="italic text-sm md:text-base text-slate-700">{p.place}</span
+					>
+				</p>
+			</div>
+		</div>
+		<div class="flex max-h-full flex-col">
+			<Image
+				src={p.photo.url}
+				height={p.photo.height}
+				width={p.photo.width}
+				alt={p.description}
+				quality={35}
+				class="object-scale-down"
+				style="max-height: 85%;"
+			/>
+			<p class="text-sm text-center font-bold">
+				&copy; {current_yr} Mukul Agarwal
+			</p>
+		</div>
+	</div>
 </Layout>

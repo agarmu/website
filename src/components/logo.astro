@@ -1,37 +1,37 @@
 ---
 interface Props {
-    src: any;
-    alt: any;
-    desc: string;
-    url: string;
+	src: any
+	alt: any
+	desc: string
+	url: string
 }
-const { src, alt, desc, url } = Astro.props;
-import { Image } from "astro:assets";
+const { src, alt, desc, url } = Astro.props
+import { Image } from "astro:assets"
 const idgen = () => {
-    let _ch = Math.floor(Math.random() * 1000);
-};
+	let _ch = Math.floor(Math.random() * 1000)
+}
 const id = Array(20)
-    .map((x) => `${idgen()}`)
-    .join("-");
+	.map((x) => `${idgen()}`)
+	.join("-")
 ---
 
 <a href={url}>
-    <div class="group m-2 p-2 hover:bg-slate-700 rounded-md">
-        <div class="flex flex-row bg-inherit rounded-md w-6 md:w-7">
-            <Image
-                src={src}
-                alt={desc}
-                title={desc}
-                class="w-6 md:w-7 visible group-hover:collapse"
-                id={id}
-            />
-            <Image
-                src={alt}
-                alt={desc}
-                title={desc}
-                class="w-6 md:w-7 collapse group-hover:visible"
-                id={id}
-            />
-        </div>
-    </div>
+	<div class="group m-2 p-2 hover:bg-slate-700 rounded-md">
+		<div class="flex flex-row bg-inherit rounded-md w-6 md:w-7">
+			<Image
+				src={src}
+				alt={desc}
+				title={desc}
+				class="w-6 md:w-7 visible group-hover:collapse"
+				id={id}
+			/>
+			<Image
+				src={alt}
+				alt={desc}
+				title={desc}
+				class="w-6 md:w-7 collapse group-hover:visible"
+				id={id}
+			/>
+		</div>
+	</div>
 </a>

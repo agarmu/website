@@ -1,27 +1,25 @@
 ---
 interface Props {
-    desc: string,
-    url: string
+	desc: string
+	url: string
 }
-const currentUrl = Astro.url.pathname.trim();
-const {url, desc} = Astro.props;
-const isCurrent = url == currentUrl;
+const currentUrl = Astro.url.pathname.trim()
+const { url, desc } = Astro.props
+const isCurrent = url == currentUrl
 ---
-{
-    isCurrent ?
-    <a class="text-indigo-800" aria-current="page">
-            <div class="block mt-4 sm:inline-block sm:mt-0 mr-4" id={`menu-${desc}`}>
-                    {desc}
-            </div>
-        </a>
-    :
-    <a
-                    href={url}
-                    class="text-indigo-600 hover:text-indigo-800"
-                >
-           <div class="block mt-4 sm:inline-block sm:mt-0 mr-4" id={`menu-${desc}`}>
-                    {desc}
-            </div>
-        </a>
 
+{
+	isCurrent ? (
+		<a class="text-indigo-800" aria-current="page">
+			<div class="block mt-4 sm:inline-block sm:mt-0 mr-4" id={`menu-${desc}`}>
+				{desc}
+			</div>
+		</a>
+	) : (
+		<a href={url} class="text-indigo-600 hover:text-indigo-800">
+			<div class="block mt-4 sm:inline-block sm:mt-0 mr-4" id={`menu-${desc}`}>
+				{desc}
+			</div>
+		</a>
+	)
 }

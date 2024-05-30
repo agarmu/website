@@ -1,37 +1,41 @@
 ---
-import BlogEntry from "../../components/blog-entry.astro";
-import Heading from "../../components/heading.astro";
-import Layout from "../../components/layout.astro";
+import BlogEntry from "../../components/blog-entry.astro"
+import Heading from "../../components/heading.astro"
+import Layout from "../../components/layout.astro"
 
-const allPosts = (await Astro.glob("./*.md"));
-const sortedPosts = allPosts
-    .toSorted((a, b) => a.frontmatter.pubDate - b.frontmatter.pubDate)
+const allPosts = await Astro.glob("./*.md")
+const sortedPosts = allPosts.toSorted(
+	(a, b) => a.frontmatter.pubDate - b.frontmatter.pubDate,
+)
 import rss from "../../images/rss.svg"
 import rssInv from "../../images/rss-inv.svg"
-import Logo from "../../components/logo.astro";
+import Logo from "../../components/logo.astro"
 ---
 
 <Layout title="mukul's posts">
-    <div class="flex flex-col items-center justify-center w-full">
-        <Heading id="post-heading-id">posts</Heading>
-        <div class="flex flex-row p-2 items-center justify-center">
-            <Logo src={rss} alt={rssInv} desc="RSS Feed" url="/posts/rss.xml" />
-        </div>
-        {
-        sortedPosts.length > 0 ?
-        <div id="body-div" class="flex flex-col">
-            {sortedPosts.map((x: any) => <BlogEntry data={x} />)}
-        </div>
-        :
-        <div id="body-div" class="w-full flex justify-center items-center">
-            <p class="text text-slate-700 font-semibold w-3/4 sm:w-1/2">
-                Unfortunately, there are no posts here yet. You can sign up
-                for my <a class="underline hover:text-slate-500" href="/posts/rss.xml">RSS Feed</a>
-                to be notified when a post is made!
-            </p>
-        </div>
-        }
-    </div>
-    
+	<div class="flex flex-col items-center justify-center w-full">
+		<Heading id="post-heading-id">posts</Heading>
+		<div class="flex flex-row p-2 items-center justify-center">
+			<Logo src={rss} alt={rssInv} desc="RSS Feed" url="/posts/rss.xml" />
+		</div>
+		{
+			sortedPosts.length > 0 ? (
+				<div id="body-div" class="flex flex-col">
+					{sortedPosts.map((x: any) => (
+						<BlogEntry data={x} />
+					))}
+				</div>
+			) : (
+				<div id="body-div" class="w-full flex justify-center items-center">
+					<p class="text text-slate-700 font-semibold w-3/4 sm:w-1/2">
+						Unfortunately, there are no posts here yet. You can sign up for my{" "}
+						<a class="underline hover:text-slate-500" href="/posts/rss.xml">
+							RSS Feed
+						</a>
+						to be notified when a post is made!
+					</p>
+				</div>
+			)
+		}
+	</div>
 </Layout>
- 

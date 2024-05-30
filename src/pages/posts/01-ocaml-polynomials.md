@@ -5,6 +5,7 @@ pubDate: 2024-05-29
 description: Nobody likes simplifying or differentiating!
 draft: true
 ---
+
 The idea of a single-variable [polynomial](https://en.wikipedia.org/wiki/Polynomial) and its
 associated operations of addition, multiplication, and evaluation are ideas which most are familiar
 with from grade-school. In calculus courses, we are further introduced to the

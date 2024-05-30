@@ -1,17 +1,15 @@
 ---
 interface Props {
-    id?: string;
+	id?: string
 }
-const { id } = Astro.props;
+const { id } = Astro.props
 ---
 
-<div
-    class="flex items-center justify-center w-full"
->
-    <h1
-        id={id ?? ""}
-        class="text-center font-sans font-bold text-4xl lg:text-7xl md:text-6xl sm:text-5xl mx-3 pb-3 bg-gradient-to-r to-indigo-700 inline-block text-transparent bg-clip-text from-purple-500"
-    >
-        <slot />
-    </h1>
+<div class="flex items-center justify-center w-full">
+	<h1
+		id={id ?? ""}
+		class="text-center font-sans font-bold text-4xl lg:text-7xl md:text-6xl sm:text-5xl mx-3 pb-3 bg-gradient-to-r to-indigo-700 inline-block text-transparent bg-clip-text from-purple-500"
+	>
+		<slot />
+	</h1>
 </div>

@@ -1,44 +1,43 @@
 ---
-import Heading from "../../components/heading.astro";
-import Layout from "../../components/layout.astro";
-import { Image } from "astro:assets";
-import { fetchPhotos } from "../../lib/airtable";
+import Heading from "../../components/heading.astro"
+import Layout from "../../components/layout.astro"
+import { Image } from "astro:assets"
+import { fetchPhotos } from "../../lib/airtable"
 
 const photos = await fetchPhotos()
-const years = photos.map(x => x.date.getFullYear())
+const years = photos.map((x) => x.date.getFullYear())
 let minYr = Math.min(...years)
 let maxYr = Math.max(...years)
 ---
 
 <Layout title="photos">
-<Heading id = "">photo gallery</Heading>
-<div class="columns-1 sm:columns-2 lg:columns-3 mt-1 sm:mt-2 md:mt-3 lg:mt-4 xl:mt-5">
-  {
-    photos.map(p => (
-    <a
-          href={`/photos/${p.id}`}
-          class="group transition-all mb-4 block w-full"
-        >
-            <Image
-            src={p.photo.url}
-            height={p.photo.height}
-            width={p.photo.width}
-            alt={p.description}
-            quality={10}
-            class:list={[
-              "rounded-lg transition-all",
-              "group-hover:shadow-lg group-hover:opacity-90",
-              "border-2 border-slate-700"
-            ]}
-          />
-        </a>
-    ))
-  }
-</div>
-<p class="text-sm text-center font-bold">
-  &copy; {
-    minYr
-  } - {maxYr} Mukul Agarwal
-</p>
-
+	<Heading id="">photo gallery</Heading>
+	<div
+		class="columns-1 sm:columns-2 lg:columns-3 mt-1 sm:mt-2 md:mt-3 lg:mt-4 xl:mt-5"
+	>
+		{
+			photos.map((p) => (
+				<a
+					href={`/photos/${p.id}`}
+					class="group transition-all mb-4 block w-full"
+				>
+					<Image
+						src={p.photo.url}
+						height={p.photo.height}
+						width={p.photo.width}
+						alt={p.description}
+						quality={10}
+						class:list={[
+							"rounded-lg transition-all",
+							"group-hover:shadow-lg group-hover:opacity-90",
+							"border-2 border-slate-700",
+						]}
+					/>
+				</a>
+			))
+		}
+	</div>
+	<p class="text-sm text-center font-bold">
+		&copy; {minYr} - {maxYr} Mukul Agarwal
+	</p>
 </Layout>

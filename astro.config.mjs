@@ -1,24 +1,24 @@
-import { defineConfig } from 'astro/config';
-import tailwind from "@astrojs/tailwind";
-import sitemap from "@astrojs/sitemap";
-import mdx from "@astrojs/mdx";
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import remarkReadingTime from './src/lib/reading-time';
+import { defineConfig } from "astro/config"
+import tailwind from "@astrojs/tailwind"
+import sitemap from "@astrojs/sitemap"
+import mdx from "@astrojs/mdx"
+import remarkMath from "remark-math"
+import rehypeKatex from "rehype-katex"
+import remarkReadingTime from "./src/lib/reading-time"
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://agarmu.com/',
-  integrations: [tailwind(), sitemap(), mdx()],
-  markdown: {
-    shikiConfig: {
-      theme: 'catppuccin-latte',
-      wrap: true,
-    },
-    remarkPlugins: [remarkMath, remarkReadingTime],
-    rehypePlugins: [rehypeKatex]
-  },
-  image: {
-    domains: ["v5.airtableusercontent.com"]
-  }
-});
+	site: "https://agarmu.com/",
+	integrations: [tailwind(), sitemap(), mdx()],
+	markdown: {
+		shikiConfig: {
+			theme: "catppuccin-latte",
+			wrap: true,
+		},
+		remarkPlugins: [remarkMath, remarkReadingTime],
+		rehypePlugins: [rehypeKatex],
+	},
+	image: {
+		domains: ["v5.airtableusercontent.com"],
+	},
+})

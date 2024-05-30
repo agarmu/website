@@ -1,33 +1,36 @@
 ---
-import InnerPost from './inner-post.astro';
-import UnderConstruction from './under-construction.astro';
+import InnerPost from "./inner-post.astro"
+import UnderConstruction from "./under-construction.astro"
 
 interface Props {
-    frontmatter: {
-        title: string;
-        pubDate: Date;
-        editDate?: Date;
-        description: string;
-        image?: string;
-        tags?: string[];
-        draft: boolean;
-        readingTime: string;
-    };
+	frontmatter: {
+		title: string
+		pubDate: Date
+		editDate?: Date
+		description: string
+		image?: string
+		tags?: string[]
+		draft: boolean
+		readingTime: string
+	}
 }
 const { draft, description, title } = Astro.props.frontmatter
-const isRenderable = (import.meta.env.MODE == 'development') || (!draft)
+const isRenderable = import.meta.env.MODE == "development" || !draft
 ---
+
 <head>
-    <meta name="description" content=`${description}` />
+	<meta name="description" content=`${description}` />
 </head>
 <body>
-{
-    isRenderable ?
-    <InnerPost frontmatter={Astro.props.frontmatter}>
-        <slot/>
-    </InnerPost> :
-    <UnderConstruction title={`post: ${title}`}>
-        This post is not yet published. 
-        </UnderConstruction>
-}
+	{
+		isRenderable ? (
+			<InnerPost frontmatter={Astro.props.frontmatter}>
+				<slot />
+			</InnerPost>
+		) : (
+			<UnderConstruction title={`post: ${title}`}>
+				This post is not yet published.
+			</UnderConstruction>
+		)
+	}
 </body>
