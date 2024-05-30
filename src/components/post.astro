@@ -22,7 +22,9 @@ const isRenderable = (import.meta.env.MODE == 'development') || (!draft)
 <body>
 {
     isRenderable ?
-    <InnerPost frontmatter={Astro.props.frontmatter} /> :
+    <InnerPost frontmatter={Astro.props.frontmatter}>
+        <slot/>
+    </InnerPost> :
     <UnderConstruction title={`post: ${title}`}>
         This post is not yet published. 
         </UnderConstruction>

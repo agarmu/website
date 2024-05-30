@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import remarkReadingTime from './src/lib/reading-time';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,7 +15,7 @@ export default defineConfig({
       theme: 'catppuccin-latte',
       wrap: true,
     },
-    remarkPlugins: [remarkMath],
+    remarkPlugins: [remarkMath, remarkReadingTime],
     rehypePlugins: [rehypeKatex]
   },
   image: {
