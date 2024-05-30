@@ -50,7 +50,7 @@ familiarity with Haskell.
 
 > **A note on autocompletion/AI-generated code**: I would strongly suggest that
 > you disable copilot and/or Replit's AI autocompletion features if you're new
-> to Haskell. It will probably impede your ability to learn, at least to some
+> to Haskell. They will probably impede your ability to learn, at least to some
 > extent.
 
 ### Replit Setup
@@ -102,8 +102,8 @@ line defines the function of `main` -- it prints the line "Ready to CAS!" to its
 standard output. Above `main`, there are several lines of comments.
 
 [^1]:
-    It is natural to feel that explicityly declaring an `IO` operation
-    explicitly is at least somewhat odd. Haskell is what is called a
+    It is natural to feel that declaring an `IO` operation explicitly is at
+    least somewhat odd. Haskell is what is called a
     [pure language](https://en.wikipedia.org/wiki/Purely_functional_programming),
     which makes this explicitness necessary, but can also have many positive
     effects. For instance, pure languages are often also
@@ -212,7 +212,147 @@ data Polynomial = Monomial Float Int | Sum Polynomial Polynomial
 Now, a polynomial can either be a _single_ term or the sum of two other
 polynomials.
 
+### Exercise
+
 Though not strictly required since all polynomials can be expressed as sums of
-other polynomials, it is often convenient to represent polynomial multiplication
--- it is **left as an exercise to you to do this**. Don't worry if you get
-stuck, though; a potential answer is given at the end of this section.
+other polynomials, it is often convenient to represent polynomial
+multiplication. Try doing this on your own!
+
+Once you're done with that, we've successfully defined a polynomial type, which
+we will continue to work with. If you get stuck/lost anywhere, here's a
+[GitHub Gist](https://gist.github.com/agarmu/975719dfaf66e37d719f4c94d9bf62d3)
+with the source code at this step.
+
+## Step 2: Printing our polynomials
+
+Now that we've defined a nice polynomial type, it's probably useful to be able
+to view it easily in GHCi. To do this, we need a function which will accept a
+polynomial and return a string. In fact, we're going to write a special type of
+function -- one that implements the `Show` typeclass for `Polynomial`.
+
+A typeclass in Haskell is similar to an "interface" in another language; all
+members of a typeclass have certain properties & behaviors. Members of the
+`Show` typeclass, in particular, are recognizable by GHCi as things that can be
+"printed".
+
+In order to do this, we must have as the first line of our declaration:
+
+```hs
+instance Show Polynomial where
+```
+
+This declares the type `Polynomial` to be a member of the typeclass `Show`;
+Haskell now expects that you provide an implementation of the associated `show`
+function for `Polynomial`.
+
+It is now that Haskell's abilities truly shine. Haskell has very strong pattern
+matching, which makes defining the `show` function fairly easy. For each variant
+of `Polynomial` we define a separate line that explains how the contents must be
+shown.
+
+First, let's look at a monomial. Both `Float` and `Int` are members of the
+typeclass `Show`, so we can run the `show` function upon them to get string
+representations of each. We also use the `++` operator for concatenation. We put
+the defintion for showing a monomial indented under our previous line, yielding:
+
+```hs
+instance Show Polynomial where
+  show (Monomial c n) = show c ++ "x^" ++ show n
+```
+
+Similarly, for addition, we know that if we take the sum of two polynomials,
+then their string representation can be achieved by placing a `+` between the
+two individual polynomials.
+
+```hs
+instance Show Polynomial where
+  show (Monomial c n) = show c ++ "x^" ++ show n
+  show (Sum p1 p2) = show p1 ++ " + " show p2
+```
+
+It's _that_ simple.
+
+### Exercise
+
+As before, try to implement `Show` for a product of two polynomials. Make sure
+to include parentheses as necessary to preserve the order of operations.
+
+Also, notice that if you have the polynomial $p(x) = 15$, then it will be
+rendered by `show` as `15x^0`, which is perhaps not the most optimal way to
+render it. By using the knowledge that Haskell picks earlier definitions before
+later ones, can you modify your definition such that it renders polynomials like
+the above correctly?
+
+You can test your program with the following inputs/outputs in GHCi:
+
+A simple sum:
+
+```hs
+ghci> Sum (Monomial 25 1) (Sum (Monomial 3 2) (Monomial 4 0))
+25.0x^1 + 3.0x^2 + 4.0
+```
+
+A sum within a product:
+
+```hs
+ghci> Product (Monomial 25 1) (Sum (Monomial 3 2) (Monomial 4 0))
+(25.0x^1) * (3.0x^2 + 4.0)
+```
+
+Lots of nesting:
+
+```hs
+ghci> Sum (Product (Monomial 3 0) (Sum (Monomial 4 1) (Monomial 3 5))) (Product (Monomial 1 1) (Monomial 1 4))
+(3.0) * (4.0x^1 + 3.0x^5) + (1.0x^1) * (1.0x^4)
+```
+
+If you get stuck somewhere, here's a
+[GitHub Gist](https://gist.github.com/agarmu/2f7abd000873076a6e6bef1bd7d2f9dc)
+to help you get back on track.
+
+## Step 3: Evaluation
+
+### Interlude 2: Type signatures
+
+This is a pretty easy step compared to the last one, so I'm going to use it to
+explain some things about Haskell. Imagine that we are about to write a function
+that maps a polynomial to a floating point value, which in Haskell would be
+written as:
+
+```hs
+mapper :: Polynomial -> Float
+```
+
+That's not too bad. But now imagine that our function took a polynomial, a
+floating point value, and then evaluated the polynomial at that floating point
+value. Then the type signature would be:
+
+```hs
+eval :: Polynomial -> Float -> Float
+```
+
+Why are there _two_ arrows? It turns out Haskell exhibits a behavior called
+[currying](https://en.wikipedia.org/wiki/Currying), where a function which takes
+multiple inputs is actually a _sequence_ of functions which take one input at a
+time. Using this paradigm, we can create functions of type `Float -> Float` by
+[partially applying](https://en.wikipedia.org/wiki/Partial_application) the
+first argument of `eval`. Thankfully, we don't have to deal with this _just_
+yet, but don't be alarmed if you see something of this sort; it's just a
+function which takes multiple inputs.
+
+### Implementing `eval`
+
+The `eval` function we define is not related to a typeclass, so we define it
+with less syntax:
+
+```hs
+eval :: Polynomial -> Float -> Float
+eval (Monomial c n) x = c * (x ^ n)
+```
+
+### Exercise
+
+Try implementing `eval` for sums and products on your own. If you get stuck,
+here is a
+[GitHub Gist](https://gist.github.com/agarmu/6c4f74a685fad1fc4eebd73592d5ad0e)
+to help you get back on track.

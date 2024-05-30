@@ -20,7 +20,7 @@ export default defineConfig({
 		rehypePlugins: [rehypeKatex],
 		remarkRehype: {
 			footnoteLabel: "Footnotes",
-			footnoteLabelTagName: "h3",
+			footnoteLabelTagName: "h4",
 		},
 	},
 	image: {

@@ -35,14 +35,22 @@ export default {
 						"font-size": "0.8em"
 					},
 					"h1": {
+						"color": theme("colors.slate.500"),
 						"fontFamily": sansFonts,
 						"font-weight": "bold",
 					},
 					"h2": {
+						"color": theme("colors.slate.500"),
 						"fontFamily": sansFonts,
 						"font-weight": "bold",
 					},
 					"h3": {
+						"color": theme("colors.slate.500"),
+						"fontFamily": sansFonts,
+						"font-weight": "bold",
+					},
+					"h4": {
+						"color": theme("colors.slate.500"),
 						"fontFamily": sansFonts,
 						"font-weight": "bold",
 					},
@@ -57,13 +65,21 @@ export default {
 					},
 					"ul": {
 						"list-style-type": "disc",
-						"margin-left": "2rem"
+						"margin-left": "2em"
+					},
+					"ol": {
+						"list-style-type": "decimal"
 					},
 					"code": {
 						"font-family": monoFonts
 					},
 					"pre": {
 						"font-family": monoFonts
+					},
+					".footnotes ol": {
+						"list-style-type": "decimal",
+						"margin-left": "2.5em",
+						"margin-right": "3em"
 					},
 				},
 			},
@@ -96,6 +112,12 @@ export default {
 						"margin-top": "0.5rem",
 						"margin-bottom": "0.5rem",
 					},
+					"h4": {
+						"font-size": "1.125rem",
+						"line-height": "1.75rem",
+						"margin-top": "0.5rem",
+						"margin-bottom": "0.5rem",
+					},
 					"pre": {
 						"margin-left": "0.25rem",
 						"margin-right": "0.25rem",
@@ -103,6 +125,14 @@ export default {
 						"line-height": "1.25rem",
 						"padding": "0.5rem",
 						"border-radius": "0.5rem",
+					},
+					".footnotes": {
+						"font-size": "0.875rem",
+						"line-height": "1.25rem"
+					},
+					".footnotes pre": {
+						"font-size": "0.875rem",
+						"line-height": "1.25rem"
 					},
 				},
 			},
@@ -135,6 +165,12 @@ export default {
 						"margin-top": "0.7rem",
 						"margin-bottom": "0.7rem",
 					},
+					"h4": {
+						"font-size": "1rem",
+						"line-height": "1.25rem",
+						"margin-top": "0.4375rem",
+						"margin-bottom": "0.4375rem",
+					},
 					"pre": {
 						"margin-left": "1rem",
 						"margin-right": "1rem",
@@ -142,6 +178,14 @@ export default {
 						"line-height": "1.5rem",
 						"padding": "1rem",
 						"border-radius": "1rem",
+					},
+					".footnotes": {
+						"font-size": "1rem",
+						"line-height": "1.5rem"
+					},
+					".footnotes pre": {
+						"font-size": "1rem",
+						"line-height": "1.5rem"
 					},
 				},
 			},
