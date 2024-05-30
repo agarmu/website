@@ -68,7 +68,8 @@ export default {
 						"margin-left": "2em"
 					},
 					"ol": {
-						"list-style-type": "decimal"
+						"list-style-type": "decimal",
+						"margin-left": "2em"
 					},
 					"code": {
 						"font-family": monoFonts

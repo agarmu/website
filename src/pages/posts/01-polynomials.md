@@ -186,7 +186,7 @@ Monomial 25.3 4 :: Polynomial
 ```
 
 This time, GHCi responds. The `:t` command instructs GHCi to display the type of
-something; it has responded to you that you have just created a monomial! 🥳
+something; it has responded to you that you have just created a monomial!
 
 You can play around with a few more monomials and then exit GHCi naturally with
 `(^D)`.
@@ -352,7 +352,77 @@ eval (Monomial c n) x = c * (x ^ n)
 
 ### Exercise
 
-Try implementing `eval` for sums and products on your own. If you get stuck,
-here is a
+Try implementing `eval` for sums and products on your own. Try evaluating the
+examples from the last section at several different points and checking to make
+sure that the values you see are correct.
+
+If you get stuck, here is a
 [GitHub Gist](https://gist.github.com/agarmu/6c4f74a685fad1fc4eebd73592d5ad0e)
-to help you get back on track.
+to help you get back on track.`
+
+## Step 4: Differentiation
+
+We're ready to differentiate polynomials now. Thankfully, the derivative of a
+polynomial is another polynomial, so our function will have the type signature:
+
+```hs
+differentiate :: Polynomial -> Polynomial
+```
+
+There are four useful differentiation rules we can use:
+
+1. **Constant differentiation:** $\frac{\mathrm{d}}{\mathrm{d}x} c = 0$
+2. **Power Rule**: When $n \neq 0$, then
+   $\frac{\mathrm{d}}{\mathrm{d}x} \left(x^n\right) = n \cdot x^{n-1}$
+3. **Sum Rule**:
+   $\frac{\mathrm{d}}{\mathrm{d}x} \left(f + g\right) = \frac{\mathrm{d}f}{\mathrm{d}x} + \frac{\mathrm{d}g}{\mathrm{d}x}$
+4. **Product Rule**:
+   $\frac{\mathrm{d}}{\mathrm{d}x} \left(f \cdot g\right) = \frac{\mathrm{d}f}{\mathrm{d}x} \cdot g + \frac{\mathrm{d}g}{\mathrm{d}x} \cdot f$
+
+These four rules are enough to differentiate all the polynomials we have
+constructed so far. We differentiate a product:
+
+```hs
+differentiate :: Polynomial -> Polynomial
+differentiate (Product p1 p2) =
+    Sum
+        (Product p1 (differentiate p2))
+        (Product p2 (differentiate p1))
+```
+
+### Exercise
+
+Try implementing differentiation for sums and monomials using the rules stated
+above.
+
+> Hint: you can't directly multiply a floating point number with an integer in
+> Haskell, because the `*` operator expects that both its arguments be of the
+> same type. You can use Haskell's `fromIntegral` function, which can convert a
+> floating point number to another numeric type.
+
+If you get stuck, here is a
+[GitHub Gist](https://gist.github.com/agarmu/d28519dfec611d1b16c4e4cf0247e0e6)
+to help you get back on track.`
+
+## Conclusion
+
+Congratulations! You're done creating a basic computer algebra system in
+Haskell. It's now time for you to extend your program. Here are some ideas to
+get your started.
+
+- Try adding a `Power` variant to your polynomial type so you can represent
+  polynomials like $(x+1)^15$ easily. Remember that you can use the
+  [chain rule](https://en.wikipedia.org/wiki/Chain_rule) when computing
+  derivatives.
+
+- Try differentiating the polynomial
+  `Product (Monomial 15 0) (Sum (Monomial 1 1) (Monomial 1 0))`. Is there a way
+  you can represent this in a more simple way than your program does already?
+  Maybe try to implement a function which simplifies polynomials.
+
+- Write a function which can convert a list of numbers to a polynomial, e.g.,
+  `[1,2,3,4,6]` becomes `1 + 2x + 3x^2 + 4x^3 + 6x^4`.
+
+You might have to learn some more Haskell to achieve this! I would suggest the
+book [Learn you a Haskell for Great Good](https://learnyouahaskell.com/) by
+Miran Lipovača.
