@@ -196,9 +196,9 @@ You can play around with a few more monomials and then exit GHCi naturally with
 Monomials are _fun_, but there's not that much one can do with them. It's time
 to expand to other structures.
 
-One key fact that we can use is that all polynomials $p$ can be written as $
-p(x) = c*0 + c_1 x + c_2 x^2 + c_3 x^3 + ... $ -- that is, \_all polynomials can
-be written as the sum of monomials*.
+One key fact that we can use is that all polynomials $p$ can be written as
+$p(x) = c_0 + c_1 x + c_2 x^2 + c_3 x^3 + ...$ -- that is, _all polynomials can
+be written as the sum of monomials_.
 
 Of course, we know that a sum of polynomials is a binary function, i.e.
 $+: P \times P \mapsto P$, where $P$ is the set of polynomials (which we use).
