@@ -14,4 +14,5 @@ export default {
 	semi: false,
 	quoteProps: "consistent",
 	bracketSpacing: true,
+	proseWrap: "always",
 }
