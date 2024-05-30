@@ -21,6 +21,7 @@
 		"@fontsource/courier-prime": "^5.0.20",
 		"airtable": "^0.12.2",
 		"astro": "^4.4.0",
+		"katex": "^0.16.10",
 		"mdast-util-to-string": "^4.0.0",
 		"reading-time": "^1.5.0",
 		"rehype-katex": "^7.0.0",

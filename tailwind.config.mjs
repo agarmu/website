@@ -24,6 +24,16 @@ export default {
 					"p": {
 						width: "100%",
 					},
+					"blockquote": {
+						"display": "block",
+						"font-style": "italic",
+						"margin-left": "1.5em",
+						"margin-right": "3em",
+						"padding-left": "0.5em",
+						"border-left-width": "0.25em",
+						"border-left-color": theme("colors.slate.500"),
+						"font-size": "0.8em"
+					},
 					"h1": {
 						"fontFamily": sansFonts,
 						"font-weight": "bold",
@@ -54,13 +64,16 @@ export default {
 					},
 					"pre": {
 						"font-family": monoFonts
-					}
+					},
 				},
 			},
 			sm: {
 				css: {
 					"font-size": "1rem",
 					"line-height": "1.5rem",
+					".katex": {
+						"font-size": "1em !important"
+					},
 					"p": {
 						"margin-top": "0.5rem",
 						"margin-bottom": "0.5rem",
@@ -97,6 +110,9 @@ export default {
 				css: {
 					"font-size": "1.125rem",
 					"line-height": "1.75rem",
+					".katex": {
+						"font-size": "1em !important"
+					},
 					"p": {
 						"margin-top": "0.625rem",
 						"margin-bottom": "0.625rem",
