@@ -11,6 +11,7 @@ export default defineConfig({
 	site: "https://agarmu.com/",
 	integrations: [tailwind(), sitemap(), mdx()],
 	markdown: {
+		smartypants: true,
 		shikiConfig: {
 			theme: "catppuccin-latte",
 			wrap: true,

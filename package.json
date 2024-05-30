@@ -16,6 +16,8 @@
 		"@astrojs/rss": "^4.0.6",
 		"@astrojs/sitemap": "^3.0.5",
 		"@astrojs/tailwind": "^5.1.0",
+		"@fontsource-variable/open-sans": "^5.0.29",
+		"@fontsource/cormorant-garamond": "^5.0.13",
 		"airtable": "^0.12.2",
 		"astro": "^4.4.0",
 		"mdast-util-to-string": "^4.0.0",
