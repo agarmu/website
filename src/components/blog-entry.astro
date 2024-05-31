@@ -28,8 +28,8 @@ const isRenderable = import.meta.env.MODE == "development" || (publishingStatus 
 			<div class="text-base md:text-lg font-semibold flex flex-col md:flex-row align-middle text-slate-700">
 				<a class="hover:underline" href={data.url}>
 					{title}
-					{publishingStatus == 'draft' && <span class="text text-yellow-700">&nbsp;&lowast;</span>}
-					{publishingStatus == 'draft' && <span class="text text-purple-700">&nbsp;&lowast;</span>}
+					{publishingStatus == 'draft' && <span class="text-yellow-700">&nbsp;&lowast;</span>}
+					{publishingStatus == 'unlisted' && <span class="text-orange-700">&nbsp;&lowast;</span>}
 				</a>
 				<div class="h-full md:border-l-2 md:border-slate-900 mx-2">
 					&ZeroWidthSpace;

@@ -12,7 +12,7 @@ const sortedPosts = allPosts.toSorted(
 )
 const hasAnyArticles =
 	import.meta.env.MODE == "development" ||
-	sortedPosts.some((x) => !x.frontmatter.draft)
+	sortedPosts.some((x) => x.frontmatter.publishingStatus == 'published')
 ---
 
 <Layout title="mukul's posts">
@@ -30,7 +30,7 @@ const hasAnyArticles =
 				</div>
 			) : (
 				<div id="body-div" class="w-full flex justify-center items-center">
-					<p class="text text-slate-700 font-semibold w-3/4 sm:w-1/2">
+					<p class="text-lg md:text-xl text-slate-700 font-semibold w-3/4 sm:w-1/2">
 						Unfortunately, there are no posts here yet. You can sign up for my{" "}
 						<a class="underline hover:text-slate-500" href="/posts/rss.xml">
 							RSS Feed
