@@ -1,4 +1,4 @@
-import type { NaiveImage, ProcessedImage } from "./airtableImage"
+import type { NaiveImage } from "./airtableImage"
 
 export default interface Photo {
 	id: number

@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-    body { @apply font-serif }
-    /* ... */
-  }
+	body {
+		@apply font-serif;
+	}
+	/* ... */
+}

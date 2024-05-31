@@ -1,8 +1,8 @@
 ---
-import Layout from "../../components/layout.astro"
 import { Image } from "astro:assets"
-import { fetchPhotos } from "../../lib/airtable"
+import Layout from "../../components/layout.astro"
 import PhotoNav from "../../components/photo-nav.astro"
+import { fetchPhotos } from "../../lib/airtable"
 import fmtDate from "../../lib/date"
 
 export async function getStaticPaths() {

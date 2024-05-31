@@ -1,10 +1,6 @@
-import Airtable, { type Record, type FieldSet } from "airtable"
+import Airtable from "airtable"
+import { type NaiveImage } from "../interfaces/airtableImage"
 import type Photo from "../interfaces/photo"
-import {
-	type ProcessedImage,
-	type NaiveImage,
-} from "../interfaces/airtableImage"
-import { imageMetadata } from "astro/assets/utils"
 
 const base = new Airtable({ apiKey: import.meta.env.AIRTABLE_API_KEY }).base(
 	import.meta.env.AIRTABLE_PHOTOS_BASE_ID,

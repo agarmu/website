@@ -1,7 +1,7 @@
 ---
+import { Image } from "astro:assets"
 import Heading from "../../components/heading.astro"
 import Layout from "../../components/layout.astro"
-import { Image } from "astro:assets"
 import { fetchPhotos } from "../../lib/airtable"
 
 const photos = await fetchPhotos()

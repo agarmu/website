@@ -5,9 +5,9 @@ interface Props {
 const { title } = Astro.props
 const currentPath = Astro.url.pathname.trim()
 
-import Layout from "./layout.astro"
 import { Image } from "astro:assets"
 import hammer_gif from "../images/hammer.gif"
+import Layout from "./layout.astro"
 ---
 
 <Layout title=`${title}: under construction`>

@@ -3,12 +3,12 @@ interface Props {
 	title: string
 }
 const { title } = Astro.props
+import "@fontsource-variable/crimson-pro"
+import "@fontsource-variable/open-sans"
+import "@fontsource/courier-prime"
+import "../styles/base.css"
 import Nav from "./nav.astro"
 const year = new Date().getFullYear()
-import "@fontsource-variable/open-sans"
-import "@fontsource-variable/crimson-pro"
-import "@fontsource/courier-prime"
-import '../styles/base.css'
 ---
 
 <html lang="en">
@@ -26,9 +26,7 @@ import '../styles/base.css'
 	</head>
 	<body class="bg-slate-200 h-screen">
 		<div class="flex flex-col bg-inherit h-full">
-			<div
-				class="flex flex-col bg-inherit px-5 max-h-full pb-7 md:pb-10"
-			>
+			<div class="flex flex-col bg-inherit px-5 max-h-full pb-7 md:pb-10">
 				<Nav />
 				<slot />
 			</div>

@@ -1,5 +1,3 @@
-import DefaultTheme from "tailwindcss/defaultTheme"
-
 const serifFonts = ["Crimson Pro Variable", "serif"]
 const sansFonts = ["Open Sans Variable", "sans-serif"]
 const monoFonts = ["Courier Prime", "monospace"]
