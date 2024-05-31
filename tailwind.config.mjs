@@ -1,6 +1,6 @@
-const serifFonts = ["Crimson Pro Variable", "serif"]
-const sansFonts = ["Open Sans Variable", "sans-serif"]
-const monoFonts = ["Courier Prime", "monospace"]
+const serifFonts = ["Crimson Pro Variable"]
+const sansFonts = ["Open Sans Variable"]
+const monoFonts = ["Courier Prime"]
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -21,6 +21,7 @@ export default {
 					},
 					"p": {
 						width: "100%",
+						"font-family": serifFonts,
 					},
 					"blockquote": {
 						"display": "block",
@@ -35,18 +36,22 @@ export default {
 					"h1": {
 						"color": theme("colors.slate.500"),
 						"font-weight": "bold",
+						"font-family": serifFonts,
 					},
 					"h2": {
 						"color": theme("colors.slate.500"),
 						"font-weight": "bold",
+						"font-family": serifFonts,
 					},
 					"h3": {
 						"color": theme("colors.slate.500"),
 						"font-weight": "bold",
+						"font-family": serifFonts,
 					},
 					"h4": {
 						"color": theme("colors.slate.500"),
 						"font-weight": "bold",
+						"font-family": serifFonts,
 					},
 					"img": {
 						width: "75%",
