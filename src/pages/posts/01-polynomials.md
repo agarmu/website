@@ -400,7 +400,8 @@ above.
 > same type. You can use Haskell's `fromIntegral` function, which can convert a
 > floating point number to another numeric type.
 
-Here's the final [GitHub Gist](https://gist.github.com/agarmu/d28519dfec611d1b16c4e4cf0247e0e6)
+Here's the final
+[GitHub Gist](https://gist.github.com/agarmu/d28519dfec611d1b16c4e4cf0247e0e6)
 containing our creation.
 
 ## Conclusion

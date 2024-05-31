@@ -32,7 +32,7 @@ export default {
 						"padding-left": "0.5em",
 						"border-left-width": "0.25em",
 						"border-left-color": theme("colors.slate.500"),
-						"font-size": "0.8em"
+						"font-size": "0.8em",
 					},
 					"h1": {
 						"color": theme("colors.slate.500"),
@@ -65,22 +65,22 @@ export default {
 					},
 					"ul": {
 						"list-style-type": "disc",
-						"margin-left": "2em"
+						"margin-left": "2em",
 					},
 					"ol": {
 						"list-style-type": "decimal",
-						"margin-left": "2em"
+						"margin-left": "2em",
 					},
 					"code": {
-						"font-family": monoFonts
+						"font-family": monoFonts,
 					},
 					"pre": {
-						"font-family": monoFonts
+						"font-family": monoFonts,
 					},
 					".footnotes ol": {
 						"list-style-type": "decimal",
 						"margin-left": "2.5em",
-						"margin-right": "3em"
+						"margin-right": "3em",
 					},
 				},
 			},
@@ -89,7 +89,7 @@ export default {
 					"font-size": "1rem",
 					"line-height": "1.5rem",
 					".katex": {
-						"font-size": "1em !important"
+						"font-size": "1em !important",
 					},
 					"p": {
 						"margin-top": "0.5rem",
@@ -129,11 +129,11 @@ export default {
 					},
 					".footnotes": {
 						"font-size": "0.875rem",
-						"line-height": "1.25rem"
+						"line-height": "1.25rem",
 					},
 					".footnotes pre": {
 						"font-size": "0.875rem",
-						"line-height": "1.25rem"
+						"line-height": "1.25rem",
 					},
 				},
 			},
@@ -142,7 +142,7 @@ export default {
 					"font-size": "1.125rem",
 					"line-height": "1.75rem",
 					".katex": {
-						"font-size": "1em !important"
+						"font-size": "1em !important",
 					},
 					"p": {
 						"margin-top": "0.625rem",
@@ -182,11 +182,11 @@ export default {
 					},
 					".footnotes": {
 						"font-size": "1rem",
-						"line-height": "1.5rem"
+						"line-height": "1.5rem",
 					},
 					".footnotes pre": {
 						"font-size": "1rem",
-						"line-height": "1.5rem"
+						"line-height": "1.5rem",
 					},
 				},
 			},
@@ -195,7 +195,7 @@ export default {
 			fontFamily: {
 				sans: sansFonts,
 				serif: serifFonts,
-				mono: monoFonts
+				mono: monoFonts,
 			},
 		},
 	},
