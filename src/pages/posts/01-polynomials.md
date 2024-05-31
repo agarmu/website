@@ -411,7 +411,7 @@ Haskell. It's now time for you to extend your program. Here are some ideas to
 get your started.
 
 - Try adding a `Power` variant to your polynomial type so you can represent
-  polynomials like $(x+1)^15$ easily. Remember that you can use the
+  polynomials like $(x+1)^{15}$ easily. Remember that you can use the
   [chain rule](https://en.wikipedia.org/wiki/Chain_rule) when computing
   derivatives.
 
