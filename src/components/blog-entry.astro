@@ -17,7 +17,7 @@ interface Props {
 	}
 }
 const { data } = Astro.props
-const { title, pubDate, editDate, description, image, tags, draft } =
+const { title, pubDate, description, draft } =
 	data.frontmatter
 const isRenderable = import.meta.env.MODE == "development" || !draft
 ---
