@@ -1,8 +1,8 @@
 import DefaultTheme from "tailwindcss/defaultTheme"
 
-const serifFonts = ["Crimson Pro Variable"]
-const sansFonts = ["Open Sans Variable"]
-const monoFonts = ["Courier Prime"]
+const serifFonts = ["Crimson Pro Variable", "serif"]
+const sansFonts = ["Open Sans Variable", "sans-serif"]
+const monoFonts = ["Courier Prime", "monospace"]
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -36,22 +36,18 @@ export default {
 					},
 					"h1": {
 						"color": theme("colors.slate.500"),
-						"fontFamily": sansFonts,
 						"font-weight": "bold",
 					},
 					"h2": {
 						"color": theme("colors.slate.500"),
-						"fontFamily": sansFonts,
 						"font-weight": "bold",
 					},
 					"h3": {
 						"color": theme("colors.slate.500"),
-						"fontFamily": sansFonts,
 						"font-weight": "bold",
 					},
 					"h4": {
 						"color": theme("colors.slate.500"),
-						"fontFamily": sansFonts,
 						"font-weight": "bold",
 					},
 					"img": {

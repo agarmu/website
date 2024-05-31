@@ -8,6 +8,7 @@ const year = new Date().getFullYear()
 import "@fontsource-variable/open-sans"
 import "@fontsource-variable/crimson-pro"
 import "@fontsource/courier-prime"
+import '../styles/base.css'
 ---
 
 <html lang="en">
@@ -24,9 +25,9 @@ import "@fontsource/courier-prime"
 		<title>{title}</title>
 	</head>
 	<body class="bg-slate-200 h-screen">
-		<div class="flex flex-col font-sans bg-inherit h-full">
+		<div class="flex flex-col bg-inherit h-full">
 			<div
-				class="flex flex-col font-sans bg-inherit px-5 max-h-full pb-7 md:pb-10"
+				class="flex flex-col bg-inherit px-5 max-h-full pb-7 md:pb-10"
 			>
 				<Nav />
 				<slot />

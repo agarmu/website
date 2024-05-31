@@ -9,7 +9,9 @@ import remarkReadingTime from "./src/lib/reading-time"
 // https://astro.build/config
 export default defineConfig({
 	site: "https://agarmu.com/",
-	integrations: [tailwind(), sitemap(), mdx()],
+	integrations: [tailwind({
+		applyBaseStyles: false,
+	}), sitemap(), mdx()],
 	markdown: {
 		smartypants: true,
 		shikiConfig: {
