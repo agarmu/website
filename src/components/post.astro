@@ -10,12 +10,12 @@ interface Props {
 		description: string
 		image?: string
 		tags?: string[]
-		draft: boolean
+		publishingStatus: "draft" | "unlisted" | "published"
 		readingTime: string
 	}
 }
-const { draft, description, title } = Astro.props.frontmatter
-const isRenderable = import.meta.env.MODE == "development" || !draft
+const { publishingStatus, description, title } = Astro.props.frontmatter
+const isRenderable = import.meta.env.MODE == "development" || (publishingStatus != 'draft')
 ---
 
 <head>

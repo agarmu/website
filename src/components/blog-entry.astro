@@ -10,16 +10,16 @@ interface Props {
 			description: string
 			image?: string
 			tags?: string[]
-			draft: boolean
+			publishingStatus: "draft" | "unlisted" | "published"
 			readingTime: string
 		}
 		url: string
 	}
 }
 const { data } = Astro.props
-const { title, pubDate, description, draft } =
+const { title, pubDate, description, publishingStatus } =
 	data.frontmatter
-const isRenderable = import.meta.env.MODE == "development" || !draft
+const isRenderable = import.meta.env.MODE == "development" || (publishingStatus == 'published')
 ---
 
 {
@@ -28,7 +28,8 @@ const isRenderable = import.meta.env.MODE == "development" || !draft
 			<div class="text-base md:text-lg font-semibold flex flex-col md:flex-row align-middle text-slate-700">
 				<a class="hover:underline" href={data.url}>
 					{title}
-					{draft && <span class="text text-yellow-700">&nbsp;&lowast;</span>}
+					{publishingStatus == 'draft' && <span class="text text-yellow-700">&nbsp;&lowast;</span>}
+					{publishingStatus == 'draft' && <span class="text text-purple-700">&nbsp;&lowast;</span>}
 				</a>
 				<div class="h-full md:border-l-2 md:border-slate-900 mx-2">
 					&ZeroWidthSpace;
