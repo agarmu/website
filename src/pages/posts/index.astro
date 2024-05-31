@@ -10,6 +10,7 @@ const sortedPosts = allPosts.toSorted(
 import rss from "../../images/rss.svg"
 import rssInv from "../../images/rss-inv.svg"
 import Logo from "../../components/logo.astro"
+const hasAnyArticles = (import.meta.env.MODE == 'development') || (sortedPosts.some(x => !x.frontmatter.draft))
 ---
 
 <Layout title="mukul's posts">
@@ -19,7 +20,7 @@ import Logo from "../../components/logo.astro"
 			<Logo src={rss} alt={rssInv} desc="RSS Feed" url="/posts/rss.xml" />
 		</div>
 		{
-			sortedPosts.length > 0 ? (
+			hasAnyArticles ? (
 				<div id="body-div" class="flex flex-col">
 					{sortedPosts.map((x: any) => (
 						<BlogEntry data={x} />
