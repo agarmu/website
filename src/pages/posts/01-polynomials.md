@@ -3,7 +3,7 @@ layout: ../../components/post.astro
 title: Building a Computer Algebra System in Haskell
 pubDate: 2024-05-29
 description: TODO
-draft: true
+publishingStatus: unlisted
 ---
 
 The idea of a single-variable
@@ -22,8 +22,8 @@ which exist to perform computations on objects like these.
 ### Goals
 
 Unfortunately, most computer algebra systems are _far_ too complicated to learn
-to hack/tinker with in a single day. To this end, this blog post will explore
-how we can build a **basic** computer algebra system with which you can:
+to hack/tinker within a single day. To this end, this blog post will explore how
+we can build a **basic** computer algebra system with which you can:
 
 - construct polynomials
 - represent basic operations on polynomials (e.g., addition, multiplication)
@@ -93,13 +93,14 @@ main :: IO ()
 main = putStrLn "Ready to CAS!"
 ```
 
-Though this may seem scary, this is a pretty basic Haskell file. At the top of
-the file, we declare a module, `Main`, which Haskell expects to contain a `main`
-function (seen at the bottom) of the file. The first line of the function
-declares its type to be `main :: IO ()` -- that is, `main` is a function which
-takes _no input_ and _returns nothing_ and performs IO operations [^1]. The next
-line defines the function of `main` -- it prints the line "Ready to CAS!" to its
-standard output. Above `main`, there are several lines of comments.
+Don't worry if this seems intimidating -- this is a pretty basic Haskell file.
+At the top of the file, we declare a module, `Main`, which Haskell expects to
+contain a `main` function (seen at the bottom) of the file. The first line of
+the function declares its type to be `main :: IO ()` -- that is, `main` is a
+function which takes _no input_ and _returns nothing_ and performs IO operations
+[^1]. The next line defines the function of `main` -- it prints the line "Ready
+to CAS!" to its standard output. Above `main`, there are several lines of
+comments.
 
 [^1]:
     It is natural to feel that declaring an `IO` operation explicitly is at
@@ -148,7 +149,7 @@ This essentially means that `Polynomial` has a single possible "variant" it can
 be, which is a `Monomial` with an associated floating point number ($c$) and an
 integer ($n$).
 
-### Interlude: Running our program
+### Interlude 1: Running our program
 
 Now that we have a basic structure present, let's actually execute some Haskell
 code! In the shell, enter the following (substituting `app/Main.sh` for wherever
