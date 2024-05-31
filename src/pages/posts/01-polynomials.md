@@ -1,7 +1,7 @@
 ---
 layout: ../../components/post.astro
 title: Building a Computer Algebra System in Haskell
-pubDate: 2024-05-29
+pubDate: 2024-05-31
 description: TODO
 publishingStatus: unlisted
 ---
