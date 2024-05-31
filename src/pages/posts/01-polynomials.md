@@ -21,7 +21,7 @@ which exist to perform computations on objects like these.
 
 ### Goals
 
-Unfortunately, most computer algebra systems are _far_ too complicated to learn
+Unfortunately, most computer algebra systems are too complicated to learn
 to hack/tinker within a single day. To this end, this blog post will explore how
 we can build a **basic** computer algebra system with which you can:
 
