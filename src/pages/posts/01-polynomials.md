@@ -8,22 +8,22 @@ publishingStatus: unlisted
 
 The idea of a single-variable
 [polynomial](https://en.wikipedia.org/wiki/Polynomial) and its associated
-operations of addition, multiplication, and evaluation are ideas which most are
-familiar with from grade-school. In calculus courses, we are further introduced
+operations of addition, multiplication, and evaluation are ideas that most are
+familiar with from grade school. In calculus courses, we are further introduced
 to the idea of
 [differentiating](https://web.mit.edu/wwmath/calculus/differentiation/polynomials.html)
-these polynomials. Of course, these calculations are fairly easy to perform --
-especially for smaller polynomials, but when polynomials are more than just a
-few terms, it becomes somewhat difficult to manually manipulate them.
-Thankfully, computers exist; there are many programs, called
+these polynomials. Of course, these calculations are fairly easy to perform,
+especially for smaller polynomials. Yet when polynomials are more than just a
+few terms, it becomes difficult to manipulate them manually. Thankfully,
+computers exist; there are many programs called
 [computer algebra systems](https://en.wikipedia.org/wiki/Computer_algebra_system),
 which exist to perform computations on objects like these.
 
 ### Goals
 
-Unfortunately, most computer algebra systems are too complicated to learn
-to hack/tinker within a single day. To this end, this blog post will explore how
-we can build a **basic** computer algebra system with which you can:
+Unfortunately, most computer algebra systems are too complicated to learn to
+hack/tinker within a single day. To this end, this blog post will explore how we
+can build a **basic** computer algebra system with which you can:
 
 - construct polynomials
 - represent basic operations on polynomials (e.g., addition, multiplication)
@@ -36,22 +36,22 @@ would recommend that anyone who follows along uses a functional programming
 language like Haskell or [OCaml](https://ocaml.org/).
 
 The reason for this choice is twofold. Firstly, the paradigms that functional
-programming uses lend themselves _really_ well to the kind of program I want to
-write in this post, creating a program that explains itself very well while also
-being surprisingly terse. Secondly, functional programs are a really great tool
-that can be fun to use, and constructing a polynomial evaluator can serve as a
-fairly gentle introduction to this useful tool.
+programming uses lend themselves well to the kind of program I want to write in
+this post, creating a program that explains itself very well while also being
+surprisingly terse. Secondly, functional programs are a useful great tool that
+can be fun to use, and constructing a polynomial evaluator can serve as a fairly
+gentle introduction to this useful tool.
 
 ## Setup
 
-We need to take care of a few things before you can write Haskell code; I would
+We need to take care of a few things before you can write Haskell code; I
 recommend going with the remote environment unless you already have some
 familiarity with Haskell.
 
-> **A note on autocompletion/AI-generated code**: I would strongly suggest that
-> you disable copilot and/or Replit's AI autocompletion features if you're new
-> to Haskell. They will probably impede your ability to learn, at least to some
-> extent.
+> **A note on autocompletion/AI-generated code**: I strongly suggest that you
+> disable Replit's AI and/or any other AI-generated autocompletion features if
+> you're new to Haskell. Using them will probably impede your ability to learn,
+> at least to some extent.
 
 ### Replit Setup
 
@@ -61,9 +61,9 @@ and working there.
 
 ### Local Setup
 
-In order to prepare for writing Haskell code, I would recommend downloading it
-via `GHCup`, as documented [here](https://www.haskell.org/downloads/) on the
-Haskell website. I would also recommend some sort of development environment;
+To prepare for writing Haskell code, I would recommend downloading it via
+`GHCup`, as documented [here](https://www.haskell.org/downloads/) on the Haskell
+website. I would also recommend some kind of development environment;
 [Visual Studio Code](https://code.visualstudio.com/) with the Haskell plugin is
 probably fine. You can then download the
 [Replit project](https://replit.com/@agarmu/CASStarter#app) I created as a
@@ -72,8 +72,8 @@ probably fine. You can then download the
 ## Current structure
 
 For this article, let's only worry about the `Main.hs` file you see (the rest
-are build artifacts/tooling and somewhat outside the scope of this article). It
-should look like this:
+are build artifacts/tooling and are somewhat outside the scope of this article).
+It should look like this:
 
 ```hs
 module Main where
@@ -103,24 +103,25 @@ to CAS!" to its standard output. Above `main`, there are several lines of
 comments.
 
 [^1]:
-    It is natural to feel that declaring an `IO` operation explicitly is at
-    least somewhat odd. Haskell is what is called a
-    [pure language](https://en.wikipedia.org/wiki/Purely_functional_programming),
-    which makes this explicitness necessary, but can also have many positive
-    effects. For instance, pure languages are often also
-    [lazy](https://en.wikipedia.org/wiki/Lazy_evaluation), which means, e.g.,
-    that the fibonacci sequence can be declared as an infinite list, like so:
+
+It is natural to feel that declaring an `IO` operation explicitly is at least
+somewhat odd. Haskell is what is called a
+[pure language](https://en.wikipedia.org/wiki/Purely_functional_programming),
+which makes this explicitness necessary but can also have many positive effects.
+For instance, pure languages are often also
+[lazy](https://en.wikipedia.org/wiki/Lazy_evaluation), which means, e.g., that
+the Fibonacci sequence can be declared as an infinite list, like so:
 
     ```hs
-    fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
-    ```
 
-    More details on this example can be found
-    [here](https://stackoverflow.com/questions/6273621/understanding-a-recursively-defined-list-fibs-in-terms-of-zipwith).
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs) ```
 
-In the remainder of this article, we're going to go through the steps in each of
-the comments given to create a basic working CAS. At the end of each step, I
-link a full copy of the `Main.hs` file linked so you can check your progress.
+More details on this example are found
+[here](https://stackoverflow.com/questions/6273621/understanding-a-recursively-defined-list-fibs-in-terms-of-zipwith).
+
+In the remainder of this article, we will go through the steps in each comment
+to create a basic CAS. At the end of each step, I link a full copy of the
+`Main.hs` file so you can check your progress.
 
 ## Step 1: Defining a Polynomial Type
 
@@ -151,9 +152,9 @@ integer ($n$).
 
 ### Interlude 1: Running our program
 
-Now that we have a basic structure present, let's actually execute some Haskell
-code! In the shell, enter the following (substituting `app/Main.sh` for wherever
-your Haskell file is located).
+Now that we have a basic structure, let's execute some Haskell code! In the
+shell, enter the following (substituting `app/Main.sh` for wherever your Haskell
+file is located).
 
 ```sh
 $ ghci app/Main.sh
@@ -178,7 +179,7 @@ ghci> Monomial 25.3 4
 ```
 
 **Oops.** Looks like there was an error. GHCi was able to construct the monomial
-just fine, but it doesn't know how to display it for your just yet (this is an
+just fine, but it doesn't know how to display it for you just yet (this is an
 issue we will remedy later). For now, just enter the following:
 
 ```hs
@@ -194,8 +195,8 @@ You can play around with a few more monomials and then exit GHCi naturally with
 
 ### More than just monomials
 
-Monomials are _fun_, but there's not that much one can do with them. It's time
-to expand to other structures.
+Monomials are _fun_, but there's not much one can do with them. It's time to
+expand to other structures.
 
 One key fact that we can use is that all polynomials $p$ can be written as
 $p(x) = c_0 + c_1 x + c_2 x^2 + c_3 x^3 + ...$ -- that is, _all polynomials can
@@ -203,8 +204,8 @@ be written as the sum of monomials_.
 
 Of course, we know that a sum of polynomials is a binary function, i.e.
 $+: P \times P \mapsto P$, where $P$ is the set of polynomials (which we use).
-This mathematical model can translate very directly into Haskell; we can simply
-add another variant to our type definition.
+This mathematical model can be translated directly into Haskell; we can add this
+behavior with another variant for our type definition.
 
 ```hs
 data Polynomial = Monomial Float Int | Sum Polynomial Polynomial
@@ -226,17 +227,17 @@ with the source code at this step.
 
 ## Step 2: Printing our polynomials
 
-Now that we've defined a nice polynomial type, it's probably useful to be able
-to view it easily in GHCi. To do this, we need a function which will accept a
-polynomial and return a string. In fact, we're going to write a special type of
-function -- one that implements the `Show` typeclass for `Polynomial`.
+Now that we've defined a polynomial type, we should find a way to view it easily
+in GHCi. Doing this requires a function that maps a polynomial to a string. In
+fact, we will write a special type of function -- one that implements the `Show`
+typeclass for `Polynomial`.
 
 A typeclass in Haskell is similar to an "interface" in another language; all
 members of a typeclass have certain properties & behaviors. Members of the
 `Show` typeclass, in particular, are recognizable by GHCi as things that can be
 "printed".
 
-In order to do this, we must have as the first line of our declaration:
+To do this, we must have as the first line of our declaration:
 
 ```hs
 instance Show Polynomial where
@@ -258,7 +259,7 @@ the defintion for showing a monomial indented under our previous line, yielding:
 
 ```hs
 instance Show Polynomial where
-  show (Monomial c n) = show c ++ "x^" ++ show n
+ show (Monomial c n) = show c ++ "x^" ++ show n
 ```
 
 Similarly, for addition, we know that if we take the sum of two polynomials,
@@ -267,8 +268,8 @@ two individual polynomials.
 
 ```hs
 instance Show Polynomial where
-  show (Monomial c n) = show c ++ "x^" ++ show n
-  show (Sum p1 p2) = show p1 ++ " + " show p2
+ show (Monomial c n) = show c ++ "x^" ++ show n
+ show (Sum p1 p2) = show p1 ++ " + " show p2
 ```
 
 It's _that_ simple.
@@ -333,13 +334,13 @@ eval :: Polynomial -> Float -> Float
 ```
 
 Why are there _two_ arrows? It turns out Haskell exhibits a behavior called
-[currying](https://en.wikipedia.org/wiki/Currying), where a function which takes
-multiple inputs is actually a _sequence_ of functions which take one input at a
+[currying](https://en.wikipedia.org/wiki/Currying), where a function that takes
+multiple inputs is actually a _sequence_ of functions that take one input at a
 time. Using this paradigm, we can create functions of type `Float -> Float` by
 [partially applying](https://en.wikipedia.org/wiki/Partial_application) the
 first argument of `eval`. Thankfully, we don't have to deal with this _just_
 yet, but don't be alarmed if you see something of this sort; it's just a
-function which takes multiple inputs.
+function that takes multiple inputs.
 
 ### Implementing `eval`
 
@@ -386,9 +387,9 @@ constructed so far. We differentiate a product:
 ```hs
 differentiate :: Polynomial -> Polynomial
 differentiate (Product p1 p2) =
-    Sum
-        (Product p1 (differentiate p2))
-        (Product p2 (differentiate p1))
+ Sum
+ (Product p1 (differentiate p2))
+ (Product p2 (differentiate p1))
 ```
 
 ### Exercise
@@ -409,7 +410,7 @@ containing our creation.
 
 Congratulations! You're done creating a basic computer algebra system in
 Haskell. It's now time for you to extend your program. Here are some ideas to
-get your started.
+get you started.
 
 - Try adding a `Power` variant to your polynomial type so you can represent
   polynomials like $(x+1)^{15}$ easily. Remember that you can use the
@@ -419,11 +420,14 @@ get your started.
 - Try differentiating the polynomial
   `Product (Monomial 15 0) (Sum (Monomial 1 1) (Monomial 1 0))`. Is there a way
   you can represent this in a more simple way than your program does already?
-  Maybe try to implement a function which simplifies polynomials.
+  Maybe try to implement a function that simplifies polynomials.
 
-- Write a function which can convert a list of numbers to a polynomial, e.g.,
+- Write a function that converts a list of numbers to a polynomial, e.g.,
   `[1,2,3,4,6]` becomes `1 + 2x + 3x^2 + 4x^3 + 6x^4`.
 
+- Write a parsing program that converts a string representing a polynomial to a
+  `Polynomial` (i.e., invert the `show` function we previously wrote)
+
 You might have to learn some more Haskell to achieve this! I would suggest the
-book [Learn you a Haskell for Great Good](https://learnyouahaskell.com/) by
+book [Learn You a Haskell for Great Good](https://learnyouahaskell.com/) by
 Miran Lipovača.
