@@ -12,7 +12,7 @@ const sortedPosts = allPosts.toSorted(
 )
 const hasAnyArticles =
 	import.meta.env.MODE == "development" ||
-	sortedPosts.some((x) => x.frontmatter.publishingStatus == 'published')
+	sortedPosts.some((x) => x.frontmatter.publishingStatus == "published")
 ---
 
 <Layout title="mukul's posts">

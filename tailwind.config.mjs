@@ -20,7 +20,7 @@ export default {
 						},
 					},
 					"p": {
-						width: "100%",
+						"width": "100%",
 						"font-family": serifFonts,
 					},
 					"blockquote": {

@@ -14,12 +14,7 @@ interface Props {
 		readingTime: string
 	}
 }
-const {
-	title,
-	pubDate,
-	editDate,
-	publishingStatus,
-} = Astro.props.frontmatter
+const { title, pubDate, editDate, publishingStatus } = Astro.props.frontmatter
 ---
 
 <Layout title=`post: ${title}`>
@@ -35,7 +30,7 @@ const {
 			class="flex flex-col justify-center items-center w-full sm:w-4/5 md:w-3/4 lg:w-2/3 mx-2"
 		>
 			{
-				(publishingStatus != 'published') && (
+				publishingStatus != "published" && (
 					<p class="text-center text-white bg-orange-600 font-bold text-5xl border-8 border-red-700 p-4 rounded-3xl">
 						DRAFT CONTENT
 					</p>

@@ -15,7 +15,8 @@ interface Props {
 	}
 }
 const { publishingStatus, description, title } = Astro.props.frontmatter
-const isRenderable = import.meta.env.MODE == "development" || (publishingStatus != 'draft')
+const isRenderable =
+	import.meta.env.MODE == "development" || publishingStatus != "draft"
 ---
 
 <head>
