@@ -93,9 +93,9 @@ main :: IO ()
 main = putStrLn "Ready to CAS!"
 ```
 
-Don't worry if this seems intimidating -- this is a pretty basic Haskell file.
-At the top of the file, we declare a module, `Main`, which Haskell expects to
-contain a `main` function (seen at the bottom) of the file. The first line of
+Don't worry if this seems intimidating -- we're going to break down this Haskell
+file. At the top of the file, we declare a module, `Main`, which Haskell expects
+to contain a `main` function (seen at the bottom) of the file. The first line of
 the function declares its type to be `main :: IO ()` -- that is, `main` is a
 function which takes _no input_ and _returns nothing_ and performs IO operations
 [^1]. The next line defines the function of `main` -- it prints the line "Ready
