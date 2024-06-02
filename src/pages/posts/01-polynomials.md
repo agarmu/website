@@ -214,7 +214,7 @@ data Polynomial = Monomial Float Int | Sum Polynomial Polynomial
 Now, a polynomial can either be a _single_ term or the sum of two other
 polynomials.
 
-### Exercise
+### Try it yourself!
 
 Though not strictly required since all polynomials can be expressed as sums of
 other polynomials, it is often convenient to represent polynomial
@@ -274,7 +274,7 @@ instance Show Polynomial where
 
 It's _that_ simple.
 
-### Exercise
+### Try it yourself!
 
 As before, try to implement `Show` for a product of two polynomials. Make sure
 to include parentheses as necessary to preserve the order of operations.
@@ -352,7 +352,7 @@ eval :: Polynomial -> Float -> Float
 eval (Monomial c n) x = c * (x ^ n)
 ```
 
-### Exercise
+### Try it yourself!
 
 Try implementing `eval` for sums and products on your own. Try evaluating the
 examples from the last section at several different points and checking to make
@@ -392,7 +392,7 @@ differentiate (Product p1 p2) =
  (Product p2 (differentiate p1))
 ```
 
-### Exercise
+### Try it yourself!
 
 Try implementing differentiation for sums and monomials using the rules stated
 above.
