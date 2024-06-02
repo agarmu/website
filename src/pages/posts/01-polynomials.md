@@ -102,9 +102,7 @@ function which takes _no input_ and _returns nothing_ and performs IO operations
 to CAS!" to its standard output. Above `main`, there are several lines of
 comments.
 
-[^1]:
-
-It is natural to feel that declaring an `IO` operation explicitly is at least
+[^1]: It is natural to feel that declaring an `IO` operation explicitly is at least
 somewhat odd. Haskell is what is called a
 [pure language](https://en.wikipedia.org/wiki/Purely_functional_programming),
 which makes this explicitness necessary but can also have many positive effects.
@@ -112,9 +110,9 @@ For instance, pure languages are often also
 [lazy](https://en.wikipedia.org/wiki/Lazy_evaluation), which means, e.g., that
 the Fibonacci sequence can be declared as an infinite list, like so:
 
-    ```hs
-
-fibs = 0 : 1 : zipWith (+) fibs (tail fibs) ```
+```hs
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+```
 
 More details on this example are found
 [here](https://stackoverflow.com/questions/6273621/understanding-a-recursively-defined-list-fibs-in-terms-of-zipwith).
