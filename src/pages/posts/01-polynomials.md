@@ -132,7 +132,7 @@ the most basic level, a polynomial is a
 form $c x^n$ for some real number $c$ and some natural number $n$.
 
 This is a good start to defining our polynomial type! In Haskell, a
-user-constructed type is denoted as:
+user-constructed [_algebraic _data_type](https://en.wikipedia.org/wiki/Algebraic_data_type) is denoted as:
 
 ```hs
 data [type_name] = ...
