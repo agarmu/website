@@ -1,7 +1,7 @@
 ---
 layout: ../../components/post.astro
 title: Building a Computer Algebra System in Haskell
-pubDate: 2024-05-31
+pubDate: 2024-06-02
 description:
   Learn how to use functional programming to create a tool that works with
   polynomials!
@@ -117,8 +117,8 @@ comments.
     fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
     ```
 
-More details on this example are found
-[here](https://stackoverflow.com/questions/6273621/understanding-a-recursively-defined-list-fibs-in-terms-of-zipwith).
+    More details on this example are found
+    [here](https://stackoverflow.com/questions/6273621/understanding-a-recursively-defined-list-fibs-in-terms-of-zipwith).
 
 In the remainder of this article, we will go through the steps in each comment
 to create a basic CAS. At the end of each step, I link a full copy of the
