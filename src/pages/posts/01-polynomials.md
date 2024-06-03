@@ -3,7 +3,7 @@ layout: ../../components/post.astro
 title: Building a Computer Algebra System in Haskell
 pubDate: 2024-05-31
 description: Learn how to use functional programming to create a tool that works with polynomials!
-publishingStatus: unlisted
+publishingStatus: published
 ---
 
 The idea of a single-variable
