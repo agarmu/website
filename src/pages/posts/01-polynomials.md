@@ -113,9 +113,9 @@ comments.
     [lazy](https://en.wikipedia.org/wiki/Lazy_evaluation), which means, e.g.,
     that the Fibonacci sequence can be declared as an infinite list, like so:
 
-```hs
-fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
-```
+    ```hs
+    fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+    ```
 
 More details on this example are found
 [here](https://stackoverflow.com/questions/6273621/understanding-a-recursively-defined-list-fibs-in-terms-of-zipwith).
