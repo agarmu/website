@@ -17,7 +17,10 @@ const isCurrent = url == currentUrl
 		</a>
 	) : (
 		<a href={url} class="text-indigo-600 hover:text-indigo-800 font-semibold">
-			<div class="block mt-4 sm:inline-block sm:mt-0 mr-4 hover:underline" id={`menu-${desc}`}>
+			<div
+				class="block mt-4 sm:inline-block sm:mt-0 mr-4 hover:underline"
+				id={`menu-${desc}`}
+			>
 				{desc}
 			</div>
 		</a>

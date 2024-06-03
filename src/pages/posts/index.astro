@@ -44,7 +44,9 @@ const hasAnyArticles =
 	<script>
 		const fix_size = (_ignored: Event) => {
 			let headers = document.getElementsByClassName("blogpost-head")
-			let bodies = document.getElementsByClassName("blogpost-body") as HTMLCollectionOf<HTMLElement>
+			let bodies = document.getElementsByClassName(
+				"blogpost-body",
+			) as HTMLCollectionOf<HTMLElement>
 			let maxWidth = 0
 			for (let h of headers) {
 				maxWidth = Math.max(maxWidth, h.clientWidth)

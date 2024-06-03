@@ -2,7 +2,9 @@
 layout: ../../components/post.astro
 title: Building a Computer Algebra System in Haskell
 pubDate: 2024-05-31
-description: Learn how to use functional programming to create a tool that works with polynomials!
+description:
+  Learn how to use functional programming to create a tool that works with
+  polynomials!
 publishingStatus: published
 ---
 
@@ -132,7 +134,9 @@ the most basic level, a polynomial is a
 form $c x^n$ for some real number $c$ and some natural number $n$.
 
 This is a good start to defining our polynomial type! In Haskell, a
-user-constructed [_algebraic _data_type](https://en.wikipedia.org/wiki/Algebraic_data_type) is denoted as:
+user-constructed
+[algebraic datatype](https://en.wikipedia.org/wiki/Algebraic_data_type) is
+denoted as:
 
 ```hs
 data [type_name] = ...

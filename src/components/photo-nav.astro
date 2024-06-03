@@ -22,10 +22,7 @@ const { id, minId, maxId } = Astro.props
 			)}
 			{id != maxId && (
 				<div class="text-center text-indigo-700 font-bold hover:underline hover:text-indigo-500">
-					<a
-						class="underline"
-						href={`/photos/${id + 1}`}
-					>
+					<a class="underline" href={`/photos/${id + 1}`}>
 						Next &rarr;
 					</a>
 				</div>
@@ -42,10 +39,7 @@ const { id, minId, maxId } = Astro.props
 				</a>
 			</div>
 			<div class="text-center text-indigo-700 font-bold hover:underline hover:text-indigo-500">
-				<a
-					class=""
-					href={`/photos/${id + 1}`}
-				>
+				<a class="" href={`/photos/${id + 1}`}>
 					Next &rarr;
 				</a>
 			</div>
