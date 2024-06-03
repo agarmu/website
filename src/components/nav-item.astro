@@ -10,14 +10,14 @@ const isCurrent = url == currentUrl
 
 {
 	isCurrent ? (
-		<a class="text-indigo-800" aria-current="page">
+		<a class="text-indigo-800 font-semibold" aria-current="page">
 			<div class="block mt-4 sm:inline-block sm:mt-0 mr-4" id={`menu-${desc}`}>
 				{desc}
 			</div>
 		</a>
 	) : (
-		<a href={url} class="text-indigo-600 hover:text-indigo-800">
-			<div class="block mt-4 sm:inline-block sm:mt-0 mr-4" id={`menu-${desc}`}>
+		<a href={url} class="text-indigo-600 hover:text-indigo-800 font-semibold">
+			<div class="block mt-4 sm:inline-block sm:mt-0 mr-4 hover:underline" id={`menu-${desc}`}>
 				{desc}
 			</div>
 		</a>
