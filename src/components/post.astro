@@ -14,24 +14,18 @@ interface Props {
 		readingTime: string
 	}
 }
-const { publishingStatus, description, title } = Astro.props.frontmatter
+const { publishingStatus, title } = Astro.props.frontmatter
 const isRenderable =
 	import.meta.env.MODE == "development" || publishingStatus != "draft"
 ---
-
-<head>
-	<meta name="description" content=`${description}` />
-</head>
-<body>
-	{
-		isRenderable ? (
-			<InnerPost frontmatter={Astro.props.frontmatter}>
-				<slot />
-			</InnerPost>
-		) : (
-			<UnderConstruction title={`Post: ${title}`}>
-				This post is not yet published.
-			</UnderConstruction>
-		)
-	}
-</body>
+{
+	isRenderable ? (
+		<InnerPost frontmatter={Astro.props.frontmatter}>
+			<slot />
+		</InnerPost>
+	) : (
+		<UnderConstruction title={`Post: ${title}`}>
+			This post is not yet published.
+		</UnderConstruction>
+	)
+}

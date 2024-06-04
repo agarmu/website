@@ -14,16 +14,18 @@ interface Props {
 		readingTime: string
 	}
 }
-const { title, pubDate, editDate, publishingStatus } = Astro.props.frontmatter
+const { title, pubDate, editDate, description, publishingStatus } = Astro.props.frontmatter
 ---
-
-<Layout title=`Post: ${title}`>
+<head>
+	<meta name="description" content=`${description}` />
 	<link
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
 		integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"
 		crossorigin="anonymous"
 	/>
+</head>
+<Layout title=`Post: ${title}`>
 
 	<div class="flex items-center justify-center w-full pb-10">
 		<div
