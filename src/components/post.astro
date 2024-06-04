@@ -18,6 +18,7 @@ const { publishingStatus, title } = Astro.props.frontmatter
 const isRenderable =
 	import.meta.env.MODE == "development" || publishingStatus != "draft"
 ---
+
 {
 	isRenderable ? (
 		<InnerPost frontmatter={Astro.props.frontmatter}>

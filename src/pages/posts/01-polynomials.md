@@ -64,8 +64,9 @@ and working there.
 ### Local Setup
 
 To prepare for writing Haskell code, I would recommend downloading it via
-`GHCup`, as documented [here](https://www.haskell.org/downloads/) on the Haskell
-website. I would also recommend some kind of development environment;
+`GHCup`, as documented
+[here on the Haskell website](https://www.haskell.org/downloads/). I would also
+recommend some kind of development environment;
 [Visual Studio Code](https://code.visualstudio.com/) with the Haskell plugin is
 probably fine. You can then download the
 [Replit project](https://replit.com/@agarmu/CASStarter#app) I created as a
@@ -118,7 +119,7 @@ comments.
     ```
 
     More details on this example are found
-    [here](https://stackoverflow.com/questions/6273621/understanding-a-recursively-defined-list-fibs-in-terms-of-zipwith).
+    [at this StackOverflow post](https://stackoverflow.com/questions/6273621/understanding-a-recursively-defined-list-fibs-in-terms-of-zipwith).
 
 In the remainder of this article, we will go through the steps in each comment
 to create a basic CAS. At the end of each step, I link a full copy of the
