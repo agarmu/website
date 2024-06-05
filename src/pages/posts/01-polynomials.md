@@ -403,8 +403,8 @@ above.
 
 > Hint: you can't directly multiply a floating point number with an integer in
 > Haskell, because the `*` operator expects that both its arguments be of the
-> same type. You can use Haskell's `fromIntegral` function, which can convert a
-> floating point number to another numeric type.
+> same type. You can use Haskell's `fromIntegral` function, which can convert
+> integers to other numeric types.
 
 Here's the final
 [GitHub Gist](https://gist.github.com/agarmu/d28519dfec611d1b16c4e4cf0247e0e6)
