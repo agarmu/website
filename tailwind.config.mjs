@@ -1,6 +1,6 @@
-const serifFonts = ["Cormorant Garamond"]
+const serifFonts = ["Crimson Pro Variable"]
 const sansFonts = ["Open Sans Variable"]
-const monoFonts = ["Fira Code"]
+const monoFonts = ["Courier Prime"]
 
 /** @type {import('tailwindcss').Config} */
 export default {
