@@ -20,7 +20,7 @@
 		"@fontsource-variable/open-sans": "^5.0.29",
 		"@fontsource/courier-prime": "^5.0.20",
 		"airtable": "^0.12.2",
-		"astro": "^4.4.0",
+		"astro": "^4.16.3",
 		"katex": "^0.16.10",
 		"mdast-util-to-string": "^4.0.0",
 		"reading-time": "^1.5.0",
