@@ -1,14 +1,11 @@
 ---
 import { Image } from "astro:assets"
 import Layout from "../../components/layout.astro"
-import PhotoNav from "../../components/photo-nav.astro"
 import { fetchPhotos } from "../../lib/airtable"
 import fmtDate from "../../lib/date"
 
 export async function getStaticPaths() {
 	const photos = await fetchPhotos()
-	const maxId = Math.max(...photos.map((x) => x.id))
-	const minId = Math.min(...photos.map((x) => x.id))
 	const paths = Object.values(photos).map((p) => {
 		return {
 			params: {
@@ -16,15 +13,13 @@ export async function getStaticPaths() {
 			},
 			props: {
 				p,
-				maxId,
-				minId,
 			},
 		}
 	})
 
 	return paths
 }
-const { p, maxId, minId } = Astro.props
+const { p } = Astro.props
 
 let current_yr = new Date(p.date).getFullYear()
 ---
@@ -32,17 +27,20 @@ let current_yr = new Date(p.date).getFullYear()
 <Layout title=`photo: ${p.title}`>
 	<div class="flex max-h-full flex-col">
 		<div class="flex w-full flex-col m-2 items-center justify-center">
-			<PhotoNav id={p.id} minId={minId} maxId={maxId} />
 			<div
 				class="flex w-full flex-col md:flex-row m-2 items-center justify-center"
 			>
-				<p class="font-bold text-sm md:text-base text-slate-700 text-center">
+				<p
+					class="font-bold text-sm md:text-base text-slate-700 text-center"
+				>
 					{p.title}
 				</p>
-				<div class="h-full md:border-l-2 md:border-slate-900 mx-2"></div>
+				<div class="h-full md:border-l-2 md:border-slate-900 mx-2">
+				</div>
 				<p class="text-sm md:text-base text-slate-700">
 					{fmtDate(p.date)}&nbsp;—&nbsp;<span
-						class="italic text-sm md:text-base text-slate-700">{p.place}</span
+						class="italic text-sm md:text-base text-slate-700"
+						>{p.place}</span
 					>
 				</p>
 			</div>
