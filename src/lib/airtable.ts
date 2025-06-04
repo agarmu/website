@@ -7,7 +7,7 @@ const base = new Airtable({ apiKey: import.meta.env.AIRTABLE_API_KEY }).base(
 )("table")
 
 function retrievePhotoProps(record: any): Photo {
-	let id = record.get("ID") as number
+	let id = record.get("ID") as string
 	let title = record.get("title") as string
 	let desc = record.get("description") as string
 	let place = record.get("place") as string

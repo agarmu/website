@@ -1,7 +1,7 @@
 import type { NaiveImage } from "./airtableImage"
 
 export default interface Photo {
-	id: number
+	id: string
 	date: Date
 	title: string
 	description: string
