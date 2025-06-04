@@ -1,5 +1,5 @@
-const serifFonts = ["Alegreya Variable"]
-const sansFonts = ["Jost Variable"]
+const headingFonts = ["Jost Variable"]
+const sansFonts = ["Inter Variable"]
 const monoFonts = ["Courier Prime"]
 
 /** @type {import('tailwindcss').Config} */
@@ -34,24 +34,24 @@ export default {
 						"font-size": "0.8em",
 					},
 					"h1": {
-						"color": theme("colors.slate.500"),
+						"color": theme("colors.zinc.700"),
 						"font-weight": "bold",
-						"font-family": serifFonts,
+						"font-family": headingFonts,
 					},
 					"h2": {
-						"color": theme("colors.slate.500"),
+						"color": theme("colors.zinc.700"),
 						"font-weight": "bold",
-						"font-family": serifFonts,
+						"font-family": headingFonts,
 					},
 					"h3": {
-						"color": theme("colors.slate.500"),
+						"color": theme("colors.zinc.700"),
 						"font-weight": "bold",
-						"font-family": serifFonts,
+						"font-family": headingFonts,
 					},
 					"h4": {
-						"color": theme("colors.slate.500"),
+						"color": theme("colors.zinc.700"),
 						"font-weight": "bold",
-						"font-family": serifFonts,
+						"font-family": headingFonts,
 					},
 					"img": {
 						width: "75%",
@@ -193,7 +193,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: sansFonts,
-				serif: serifFonts,
+				serif: headingFonts,
 				mono: monoFonts,
 			},
 		},
