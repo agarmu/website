@@ -3,8 +3,8 @@ interface Props {
 	title: string
 }
 const { title } = Astro.props
-import "@fontsource-variable/crimson-pro"
-import "@fontsource-variable/open-sans"
+import "@fontsource-variable/alegreya"
+import "@fontsource-variable/jost"
 import "@fontsource/courier-prime"
 import "../styles/base.css"
 import Nav from "./nav.astro"
@@ -28,7 +28,9 @@ import Nav from "./nav.astro"
 	<body class="bg-slate-200 h-screen w-full overflow-auto">
 		<Nav />
 		<div class="flex flex-col bg-inherit w-full sticky top-0">
-			<div class="flex flex-col bg-inherit px-5 pb-7 md:pb-10 sticky top-0">
+			<div
+				class="flex flex-col bg-inherit px-5 pb-7 md:pb-10 sticky top-0"
+			>
 				<slot />
 			</div>
 		</div>

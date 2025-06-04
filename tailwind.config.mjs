@@ -1,5 +1,5 @@
-const serifFonts = ["Crimson Pro Variable"]
-const sansFonts = ["Open Sans Variable"]
+const serifFonts = ["Alegreya Variable"]
+const sansFonts = ["Jost Variable"]
 const monoFonts = ["Courier Prime"]
 
 /** @type {import('tailwindcss').Config} */
@@ -11,7 +11,7 @@ export default {
 			DEFAULT: {
 				css: {
 					"color": theme("colors.slate.700"),
-					"fontFamily": serifFonts,
+					"fontFamily": sansFonts,
 					"a": {
 						"text-decoration": "underline",
 						"font-weight": 600,
@@ -21,7 +21,7 @@ export default {
 					},
 					"p": {
 						"width": "100%",
-						"font-family": serifFonts,
+						"font-family": sansFonts,
 					},
 					"blockquote": {
 						"display": "block",
