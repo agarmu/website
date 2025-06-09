@@ -25,7 +25,12 @@ const isRenderable =
 {
 	isRenderable && (
 		<div class="p-2 m-2">
-			<div class="w-fit text-base md:text-lg font-semibold flex flex-col md:flex-row align-middle text-slate-700 blogpost-head">
+			<div
+				class:list={[
+					"w-fit text-base md:text-lg font-semibold",
+					"flex flex-col md:flex-row align-middle text-slate-700 blogpost-head",
+				]}
+			>
 				<a class="hover:underline" href={data.url}>
 					{title}
 					{publishingStatus == "draft" && (
@@ -38,14 +43,19 @@ const isRenderable =
 				<div class="h-full md:border-l-2 md:border-slate-900 md:mx-2 collapse md:visible">
 					&ZeroWidthSpace;
 				</div>
-				<span class="text text-slate-400">{fmtDate(new Date(pubDate))}</span>
+				<span class="text text-slate-400">
+					{fmtDate(new Date(pubDate))}
+				</span>
 			</div>
 			<div />
 
 			<p class="text-xs md:text-sm pt-2 h-full text-slate-500 blogpost-body">
-				{description}
-				<a class="font-bold text-slate-700 hover:underline" href={data.url}>
-					&nbsp;Read&nbsp;>>
+				{description}&nbsp;
+				<a
+					class="font-bold text-slate-700 hover:underline"
+					href={data.url}
+				>
+					Read&nbsp;&raquo;
 				</a>
 			</p>
 		</div>
