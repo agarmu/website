@@ -1,6 +1,6 @@
-const headingFonts = ["Jost Variable"]
-const sansFonts = ["Inter Variable"]
-const monoFonts = ["Courier Prime"]
+const headingFonts = ["IBM Plex Serif", "serif"]
+const sansFonts = ['IBM Plex Sans Variable', "sans-serif"];
+const monoFonts = ['IBM Plex Mono', 'monospace'];
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -18,6 +18,9 @@ export default {
 						"&:hover": {
 							color: theme("colors.slate.500"),
 						},
+					},
+					"body": {
+						"font-family": sansFonts,
 					},
 					"p": {
 						"width": "100%",
