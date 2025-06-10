@@ -24,7 +24,10 @@ const { p } = Astro.props
 let current_yr = new Date(p.date).getFullYear()
 ---
 
-<Layout title=`photo: ${p.title}`>
+<Layout
+	title=`photo: ${p.title}`
+	description=`Photo ${p.title} taken in ${fmtDate(p.date)} (place: ${p.place}).`
+>
 	<div class="flex max-h-full flex-col">
 		<div class="flex w-full flex-col m-2 items-center justify-center">
 			<div
