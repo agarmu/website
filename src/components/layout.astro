@@ -23,11 +23,16 @@ const description =
 		<meta name="author" content="Mukul Agarwal" />
 		<meta name="description" content={description} />
 		<link rel="sitemap" href="/sitemap-index.xml" />
-		<script
-			is:inline
-			defer
-			src="/yum.js"
-			data-website-id="d2aed3db-cae9-460d-ba9e-64c71cd88381"></script>
+		{
+			import.meta.env.MODE != "development" && (
+				<script
+					is:inline
+					defer
+					src="/yum.js"
+					data-website-id="d2aed3db-cae9-460d-ba9e-64c71cd88381"
+				/>
+			)
+		}
 		<title>{title}</title>
 	</head>
 	<body class="bg-white h-screen w-full overflow-auto">
