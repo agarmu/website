@@ -4,6 +4,7 @@ import { defineConfig } from "astro/config"
 import rehypeKatex from "rehype-katex"
 import remarkMath from "remark-math"
 import remarkReadingTime from "./src/lib/reading-time"
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,6 +16,9 @@ export default defineConfig({
 		sitemap(),
 		mdx(),
 	],
+	vite: {
+		plugins: [tailwindcss()],
+	},
 	markdown: {
 		smartypants: true,
 		shikiConfig: {
