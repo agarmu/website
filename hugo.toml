@@ -1,0 +1,4 @@
+baseURL = 'https://agarmu.com/'
+languageCode = 'en-us'
+title = 'Mukul Agarwal'
+theme = 'hugo-bearblog'
