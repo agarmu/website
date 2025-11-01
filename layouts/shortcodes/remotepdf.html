@@ -1,0 +1,17 @@
+{{/* Usage: {{< remotepdf "https://example.com/file.pdf" "Download paper" >}} */}}
+
+{{- $url := .Get 0 -}}
+{{- $label := .Get 1 | default (path.Base $url) -}}
+
+{{- with try (resources.GetRemote $url (dict "key" (printf "nocache-%s" (now.UnixNano)))) -}}
+  {{- if .Err -}}
+    {{ errorf "Failed to fetch %q: %s" $url .Err }}
+  {{- else -}}
+    {{- $remote := .Value -}}
+    {{- $target := printf "files/%s" (path.Base $url) -}}
+    {{- $local := resources.Copy $target $remote -}}
+    <a href="{{ $local.RelPermalink }}">{{ $label }}</a>
+  {{- end -}}
+{{- else -}}
+  {{ errorf "Unexpected error fetching %q" $url }}
+{{- end -}}
