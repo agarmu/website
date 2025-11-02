@@ -67,3 +67,19 @@ enableRobotsTXT = true
     lineNos = true
     lineNumbersInTable = false
     codeFences = true
+
+[privacy]
+  [privacy.disqus]
+    disable = true
+  [privacy.googleAnalytics]
+    disable = true
+  [privacy.instagram]
+    disable = true
+  [privacy.twitter]
+    disable = false
+  [privacy.vimeo]
+    disable = true
+  [privacy.x]
+    disable = true
+  [privacy.youTube]
+    disable = true
