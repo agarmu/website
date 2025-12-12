@@ -73,10 +73,16 @@ function windowResized() {
   staticLayer.pixelDensity(1);
 
   cachedZoomVal = null;
+
+  // EVICT CLICK STATE 
+  clicks = [];
+  lastClicksKey = null;
+
   uiNeedsLayout = true;
   staticDirty = true;
   needsRedraw = true;
 }
+
 
 function keyPressed() {
   let modeChanged = false;
