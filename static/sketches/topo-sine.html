@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Topologist’s Sine Curve — p5.js</title>
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; background: #fff; }
+    canvas { display: block; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js"></script>
+</head>
+<body>
+<script>
+// p5.js (standalone)
+//
+// Modes:
+//   1: sin(1/x), 0<x<1
+//   2: topologist's sine curve
+//   3: closure
+//   4: extended
+//
+// Interaction:
+//   - Two LAST CLICKS pick the two x-values (no mouse-move tracking).
+//   - Switching mode clears clicks.
+//   - Changing zoom clears clicks.
+//
+// Performance:
+//   - Redraw only when state changes (click/mode/zoom/axes/resize).
+//   - Cache static plot (frame+axes+curve+extras) on an offscreen layer.
+//   - Reuse sampled curvePts for graph-path slices.
+
+let mode = 1, showAxes = true;
+
+let zoomSlider;
+let clicks = []; // screen x positions; keep last 2
+
+let cachedZoomVal = null;
+let curvePts = [];       // sampled curve in world coords, x decreasing
+let staticLayer;
+let staticDirty = true;
+
+let headerH = 140;
+let titleSize = 30;
+let uiNeedsLayout = true;
+
+// redraw gating
+let needsRedraw = true;
+let lastSlider = null, lastMode = null, lastAxes = null, lastClicksKey = null;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  textFont("system-ui");
+
+  pixelDensity(1);
+
+  zoomSlider = createSlider(0, 100, 35, 1);
+  zoomSlider.style("width", "340px");
+
+  staticLayer = createGraphics(windowWidth, windowHeight);
+  staticLayer.pixelDensity(1);
+
+  uiNeedsLayout = true;
+  staticDirty = true;
+  needsRedraw = true;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  pixelDensity(1);
+
+  staticLayer = createGraphics(windowWidth, windowHeight);
+  staticLayer.pixelDensity(1);
+
+  cachedZoomVal = null;
+  uiNeedsLayout = true;
+  staticDirty = true;
+  needsRedraw = true;
+}
+
+function keyPressed() {
+  let modeChanged = false;
+
+  if (key === "1") { mode = 1; modeChanged = true; }
+  if (key === "2") { mode = 2; modeChanged = true; }
+  if (key === "3") { mode = 3; modeChanged = true; }
+  if (key === "4") { mode = 4; modeChanged = true; }
+
+  if (key === "a" || key === "A") showAxes = !showAxes;
+
+  if (modeChanged) {
+    clicks = [];
+    lastClicksKey = null;
+    staticDirty = true;
+  }
+
+  uiNeedsLayout = true;
+  needsRedraw = true;
+}
+
+function mousePressed() {
+  clicks.push(mouseX);
+  if (clicks.length > 2) clicks.shift();
+  needsRedraw = true;
+}
+
+function layoutHeaderAndUI() {
+  titleSize = constrain(floor(width / 22) + 28, 28, 56);
+
+  textSize(titleSize);
+  const titleH = textAscent() + textDescent();
+
+  const margin = 12;
+  const sliderY = margin + titleH + 14;
+  zoomSlider.position(margin, sliderY);
+
+  headerH = sliderY + 70;
+  uiNeedsLayout = false;
+}
+
+function draw() {
+  if (uiNeedsLayout) layoutHeaderAndUI();
+
+  const sliderVal = zoomSlider.value();
+
+  // vacate clicks on zoom change
+  if (lastSlider !== null && sliderVal !== lastSlider) {
+    clicks = [];
+    lastClicksKey = null;
+    needsRedraw = true;
+    staticDirty = true;
+  }
+
+  // compute state key; if unchanged, don't redraw
+  const clicksKey = clicks.join(",");
+
+  if (
+    !needsRedraw &&
+    sliderVal === lastSlider &&
+    mode === lastMode &&
+    showAxes === lastAxes &&
+    clicksKey === lastClicksKey
+  ) {
+    return;
+  }
+
+  lastSlider = sliderVal;
+  lastMode = mode;
+  lastAxes = showAxes;
+  lastClicksKey = clicksKey;
+  needsRedraw = false;
+
+  background(255);
+
+  // ---- header band ----
+  noStroke();
+  fill(255);
+  rect(0, 0, width, headerH);
+
+  const title =
+    mode === 1 ? "Mode 1: Sine Curve" :
+    mode === 2 ? "Mode 2: TSC" :
+    mode === 3 ? "Mode 3: Closed TSC" :
+                 "Mode 4: Extended TSC";
+
+  fill(0);
+  textAlign(LEFT, TOP);
+  textSize(titleSize);
+  text(title, 12, 10);
+
+  textSize(14);
+  text("Click twice to choose the two points. Keys: 1/2/3/4 switch, A axes. Slider zooms into x=0.", 12, headerH - 28);
+
+  // ---- plot box ----
+  const L = 70, R = width - 50, T = headerH + 20, B = height - 70;
+
+  // Zoom -> x-range
+  const zoom = pow(10, sliderVal / 50);
+  const xMax = min(1.0, 1.0 / zoom);
+  const xMin = max(1e-7, xMax / 3500);
+
+  const world = { x0: -0.08 * xMax, x1: 1.05 * xMax, y0: -1.2, y1: 1.2 };
+
+  function W2S(x, y) {
+    return {
+      sx: map(x, world.x0, world.x1, L, R),
+      sy: map(y, world.y0, world.y1, B, T),
+    };
+  }
+  function S2W_x(sx) {
+    return map(sx, L, R, world.x0, world.x1);
+  }
+
+  // rebuild curve points only if zoom changed
+  if (cachedZoomVal !== sliderVal) {
+    curvePts = buildSineCurvePoints(xMax, xMin);
+    cachedZoomVal = sliderVal;
+    staticDirty = true;
+  }
+
+  // ---- draw static plot from cached layer ----
+  if (staticDirty) {
+    redrawStaticLayer(L, R, T, B, world, xMax);
+    staticDirty = false;
+  }
+  image(staticLayer, 0, 0);
+
+  // ---- choose x_a, x_b from last two clicks (or defaults) ----
+  let xA, xB;
+
+  if (clicks.length >= 1) xA = clamp(S2W_x(clicks[clicks.length - 1]), 0, xMax);
+  else xA = 0.7 * xMax;
+
+  if (clicks.length >= 2) xB = clamp(S2W_x(clicks[0]), 0, xMax);
+  else xB = 0.4 * xMax;
+
+  if (mode === 1) { xA = max(xA, 1.2 * xMin); xB = max(xB, 1.2 * xMin); }
+
+  const A = pointFromX(xA);
+  const Bp = pointFromX(xB);
+
+  drawPoint(A, W2S, [0, 0, 0], 9);
+  drawPoint(Bp, W2S, [0, 0, 0], 9);
+
+  // ---- path in the set ----
+  const path = buildPath(A, Bp, mode, xMax, xMin);
+
+  if (path.ok) {
+    stroke(180, 0, 0, 210);
+    strokeWeight(3);
+    noFill();
+    for (const seg of path.segs) {
+      beginShape();
+      for (const pt of seg) {
+        const s = W2S(pt.x, pt.y);
+        vertex(s.sx, s.sy);
+      }
+      endShape();
+    }
+    for (const w of path.waypoints) drawPoint(w, W2S, [180, 0, 0], 8);
+    strokeWeight(1);
+  } else {
+    const sA = W2S(A.x, A.y), sB = W2S(Bp.x, Bp.y);
+    stroke(180, 0, 0, 140);
+    dashedLine(sA.sx, sA.sy, sB.sx, sB.sy, 10, 7);
+
+    noStroke();
+    fill(180, 0, 0);
+    textAlign(LEFT, TOP);
+    textSize(12);
+    text(path.msg, L + 10, B + 12);
+  }
+}
+
+// ---------- static plot caching ----------
+function redrawStaticLayer(L, R, T, B, world, xMax) {
+  staticLayer.clear();
+
+  function W2Sg(x, y) {
+    return {
+      sx: map(x, world.x0, world.x1, L, R),
+      sy: map(y, world.y0, world.y1, B, T),
+    };
+  }
+
+  // frame
+  staticLayer.stroke(0);
+  staticLayer.noFill();
+  staticLayer.rect(L, T, R - L, B - T);
+
+  // axes
+  if (showAxes) {
+    staticLayer.stroke(225);
+    let p = W2Sg(0, world.y0), q = W2Sg(0, world.y1);
+    staticLayer.line(p.sx, p.sy, q.sx, q.sy);
+    p = W2Sg(world.x0, 0); q = W2Sg(world.x1, 0);
+    staticLayer.line(p.sx, p.sy, q.sx, q.sy);
+  }
+
+  // base curve
+  staticLayer.stroke(0, 90);
+  staticLayer.noFill();
+  staticLayer.beginShape();
+  for (const pt of curvePts) {
+    const s = W2Sg(pt.x, pt.y);
+    staticLayer.vertex(s.sx, s.sy);
+  }
+  staticLayer.endShape();
+
+  // extras
+  staticLayer.stroke(0);
+  if (mode >= 2) {
+    const o = W2Sg(0, 0);
+    staticLayer.noStroke(); staticLayer.fill(0);
+    staticLayer.circle(o.sx, o.sy, 6);
+    staticLayer.noFill(); staticLayer.stroke(0);
+  }
+  if (mode >= 3) {
+    const v1 = W2Sg(0, -1), v2 = W2Sg(0, 1);
+    staticLayer.line(v1.sx, v1.sy, v2.sx, v2.sy);
+  }
+  if (mode >= 4) {
+    const h1 = W2Sg(0, 1), h2 = W2Sg(xMax, 1);
+    staticLayer.line(h1.sx, h1.sy, h2.sx, h2.sy);
+  }
+}
+
+// ---------- math / paths ----------
+function pointFromX(x) {
+  if (x <= 0) return { x: 0, y: 0 };
+  return { x, y: sin(1 / x) };
+}
+
+function buildPath(A, B, mode, xMax, xMin) {
+  const AonGraph = A.x > 0, BonGraph = B.x > 0;
+
+  if (mode === 1) {
+    return { ok: true, segs: [graphSegment(A.x, B.x, xMin)], waypoints: [] };
+  }
+
+  if (mode === 2 || mode === 3) {
+    if (AonGraph && BonGraph) {
+      return { ok: true, segs: [graphSegment(A.x, B.x, xMin)], waypoints: [] };
+    }
+    return { ok: false, msg: "No path in this space connecting x=0 to the oscillating graph." };
+  }
+
+  // mode 4 extended
+  if (AonGraph && BonGraph) {
+    return { ok: true, segs: [graphSegment(A.x, B.x, xMin)], waypoints: [] };
+  }
+
+  const other = AonGraph ? A : B;
+  const origin = { x: 0, y: 0 };
+
+  const X1 = xWhereSinIs1AtMost(xMax);
+  const P1 = { x: X1, y: 1 };
+  const P2 = { x: 0,  y: 1 };
+
+  const seg1 = graphSegment(other.x, P1.x, xMin);
+  const seg2 = [P1, P2];
+  const seg3 = [P2, origin];
+
+  return { ok: true, segs: [seg1, seg2, seg3], waypoints: [P1, P2] };
+}
+
+// Use curvePts slice instead of recomputing tons of sin() calls
+function idxForX(x) {
+  // curvePts has x decreasing
+  let lo = 0, hi = curvePts.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (curvePts[mid].x > x) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo;
+}
+
+function graphSegment(a, b, xMin) {
+  const xa = max(a, 1.2 * xMin);
+  const xb = max(b, 1.2 * xMin);
+
+  const iA = idxForX(xa);
+  const iB = idxForX(xb);
+
+  let seg;
+  if (iA <= iB) seg = curvePts.slice(iA, iB + 1);
+  else seg = curvePts.slice(iB, iA + 1).reverse();
+
+  // exact endpoints (2 sin calls)
+  const A = { x: xa, y: sin(1 / xa) };
+  const B = { x: xb, y: sin(1 / xb) };
+  return [A, ...seg, B];
+}
+
+function xWhereSinIs1AtMost(xMax) {
+  const denom0 = HALF_PI, step = TWO_PI;
+  const k = max(0, ceil((1 / xMax - denom0) / step));
+  return min(1 / (denom0 + step * k), xMax);
+}
+
+function buildSineCurvePoints(xMax, xMin) {
+  const pts = [];
+  let x = xMax;
+  const dxCap = xMax / 900;
+  while (x > xMin) {
+    pts.push({ x, y: sin(1 / x) });
+    const periodApprox = TWO_PI * x * x;
+    const dx = min(dxCap, periodApprox / 28);
+    x -= max(dx, 1e-9);
+  }
+  pts.push({ x: xMin, y: sin(1 / xMin) });
+  return pts;
+}
+
+// ---------- drawing helpers ----------
+function drawPoint(P, W2S, rgb, d) {
+  const s = W2S(P.x, P.y);
+  noStroke();
+  fill(rgb[0], rgb[1], rgb[2]);
+  circle(s.sx, s.sy, d);
+}
+
+function dashedLine(x1, y1, x2, y2, dashLen, gapLen) {
+  const dx = x2 - x1, dy = y2 - y1;
+  const D = sqrt(dx * dx + dy * dy);
+  if (D < 1e-6) return;
+  const ux = dx / D, uy = dy / D;
+  let t = 0;
+  while (t < D) {
+    const a = t;
+    const b = min(t + dashLen, D);
+    line(x1 + ux * a, y1 + uy * a, x1 + ux * b, y1 + uy * b);
+    t += dashLen + gapLen;
+  }
+}
+
+function clamp(x, a, b) { return min(max(x, a), b); }
+</script>
+</body>
+</html>
