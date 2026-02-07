@@ -24,9 +24,9 @@
           apps = {
             serve = flake-utils.lib.mkApp { drv = serve; };
           };
-          devShells.default = {
-            packages = [ hugo ];
-          };
+          devShells.default = pkgs.mkShell {
+            packages = [ hugo serve ];
+          } ;
           formatter = pkgs.nixfmt;
         }
     );
