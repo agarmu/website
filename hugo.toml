@@ -50,7 +50,7 @@ enableRobotsTXT = true
   # 8601](https://en.wikipedia.org/wiki/ISO_8601) format:
   dateFormat = "2006-01-02"
 
-  webringDomain = "agarmu.com"
+  webringDomain = "www.agarmu.com"
 
 # Configure markup highlighter to match "Bearblog" aesthetics, see
 # https://gohugo.io/configuration/markup/#highlight
