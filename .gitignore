@@ -36,7 +36,7 @@ Desktop.ini
 # Other
 *.env
 *.local
-*.lock
+*build.lock
 *.pid
 *.seed
 *.pid.lock
