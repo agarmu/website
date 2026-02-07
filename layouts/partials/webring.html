@@ -1,0 +1,49 @@
+{{/* layouts/partials/webring.html */}}
+
+{{- $domain := site.Params.webringDomain -}}
+{{- if not $domain -}}
+  {{- errorf "Missing params.webringDomain (e.g. under [params]: webringDomain = \"agarmu.com\")" -}}
+{{- end -}}
+{{- $rel := urlquery $domain -}}
+
+{{- $prev := printf "https://ring.purduehackers.com/previous?host=%s" $rel -}}
+{{- $next := printf "https://ring.purduehackers.com/next?host=%s" $rel -}}
+
+{{- $svg := resources.Get "img/purdue-hackers-logo.svg" -}}
+
+<style>
+  .webring {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .webring a {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.1rem 0.2rem;
+  }
+  .webring__logo { padding: 0; }
+  .webring__logo svg {
+    height: 18px;
+    width: auto;
+    display: block;
+  }
+</style>
+
+<nav class="webring" aria-label="Purdue Hackers webring">
+  <a class="webring__arrow" href="{{ $prev }}" rel="prev noreferrer" aria-label="Previous">←</a>
+
+  <a class="webring__logo" href="https://ring.purduehackers.com/" rel="noreferrer" aria-label="Purdue Hackers webring">
+    {{- if $svg -}}
+      {{ $svg.Content | safeHTML }}
+    {{- else -}}
+      <span>Purdue Hackers webring</span>
+    {{- end -}}
+  </a>
+
+  <a class="webring__arrow" href="{{ $next }}" rel="next noreferrer" aria-label="Next">→</a>
+</nav>
